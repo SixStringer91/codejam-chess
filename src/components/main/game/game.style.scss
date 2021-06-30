@@ -1,0 +1,26 @@
+$grid-size:560px;
+$block-size:$grid-size/8;
+
+.grid {
+  position: relative;
+  width: $grid-size;
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-rows:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+  margin: 0 auto;
+}
+.chess-square{
+  width:$block-size;
+  height:$block-size;
+  background-color:red;
+}
+.chess-square:hover{
+  background-color:yellow !important;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
+.figure{
+  position:absolute;
+  width:$block-size
+}
