@@ -14,13 +14,22 @@ $block-size:$grid-size/8;
   height:$block-size;
   background-color:red;
 }
-.chess-square:hover{
-  background-color:yellow !important;
-  cursor: pointer;
-  transition: background-color .2s;
-}
+// .chess-square:hover{
+//   background-color:yellow !important;
+//   cursor: pointer;
+//   transition: background-color .2s;
+// }
 
 .figure{
   position:absolute;
-  width:$block-size
+  width:$block-size;
+  cursor: pointer;
+}
+
+.can_move{
+  position:absolute;
+  background-color:yellow;
+  width:$block-size;
+  height:$block-size;
+  opacity: 0.5;
 }

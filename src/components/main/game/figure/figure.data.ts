@@ -15,12 +15,30 @@ export const figures = {
   KING: {
     name: ChessFigures.KING,
     pic: king,
-    id: ChessID.K
+    id: ChessID.K,
+    moveCheck(figure: IMoveCheck, square: IMoveCheck) {
+      const check = (figure.x - square.x === 1
+        || figure.x - square.x === -1
+        || figure.x - square.x === 0)
+        && (figure.y - square.y === 1
+          || figure.y - square.y === -1
+          || figure.y - square.y === 0);
+      if (check) return true;
+      return false;
+    }
   },
   QUEEN: {
     name: ChessFigures.QUEEN,
     pic: queen,
-    id: ChessID.Q
+    id: ChessID.Q,
+    moveCheck(figure: IMoveCheck, square: IMoveCheck) {
+      const check = ((Math.abs(figure.x - square.x))
+        && Math.abs(figure.y - square.y))
+        || figure.x === square.x
+        || figure.y === square.y;
+      if (check) return true;
+      return false;
+    }
   },
   HORSE: {
     name: ChessFigures.HORSE,
@@ -37,7 +55,13 @@ export const figures = {
   BISHOP: {
     name: ChessFigures.BISHOP,
     pic: bishop,
-    id: ChessID.B
+    id: ChessID.B,
+    moveCheck(figure: IMoveCheck, square: IMoveCheck) {
+      const check = Math.abs(figure.x - square.x)
+      === Math.abs(figure.y - square.y);
+      if (check) return true;
+      return false;
+    }
   },
   PAWN: {
     name: ChessFigures.PAWN,
