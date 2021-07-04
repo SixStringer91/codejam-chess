@@ -1,10 +1,4 @@
-import { ChessID, ChessFigures } from '../../../../enums/enums';
-import horse from '../../../../assets/horse.svg';
-import bishop from '../../../../assets/bishop.svg';
-import pawn from '../../../../assets/pawn.svg';
-import king from '../../../../assets/king.svg';
-import queen from '../../../../assets/queen.svg';
-import rook from '../../../../assets/rook.svg';
+import { ChessFigures } from '../../../../enums/enums';
 
 interface IMoveCheck {
   x: number;
@@ -14,8 +8,6 @@ interface IMoveCheck {
 export const figures = {
   KING: {
     name: ChessFigures.KING,
-    pic: king,
-    id: ChessID.K,
     moveCheck(figure: IMoveCheck, square: IMoveCheck) {
       const check = (figure.x - square.x === 1
         || figure.x - square.x === -1
@@ -29,8 +21,6 @@ export const figures = {
   },
   QUEEN: {
     name: ChessFigures.QUEEN,
-    pic: queen,
-    id: ChessID.Q,
     moveCheck(figure: IMoveCheck, square: IMoveCheck) {
       const check = ((Math.abs(figure.x - square.x))
         && Math.abs(figure.y - square.y))
@@ -42,8 +32,6 @@ export const figures = {
   },
   HORSE: {
     name: ChessFigures.HORSE,
-    pic: horse,
-    id: ChessID.H,
     moveCheck(figure: IMoveCheck, square: IMoveCheck) {
       const dx = Math.abs(figure.x - square.x);
       const dy = Math.abs(figure.y - square.y);
@@ -54,8 +42,6 @@ export const figures = {
   },
   BISHOP: {
     name: ChessFigures.BISHOP,
-    pic: bishop,
-    id: ChessID.B,
     moveCheck(figure: IMoveCheck, square: IMoveCheck) {
       const check = Math.abs(figure.x - square.x)
       === Math.abs(figure.y - square.y);
@@ -65,13 +51,12 @@ export const figures = {
   },
   PAWN: {
     name: ChessFigures.PAWN,
-    pic: pawn,
-    id: ChessID.P
+    moveCheck() {
+      console.log('хуй');
+    }
   },
   ROOK: {
     name: ChessFigures.ROOK,
-    pic: rook,
-    id: ChessID.R,
     moveCheck(figure: IMoveCheck, square: IMoveCheck) {
       if (figure.x === square.x || figure.y === square.y) return true;
       return false;

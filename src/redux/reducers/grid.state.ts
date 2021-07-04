@@ -1,14 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { FigureColor } from '../../enums/enums';
 
-interface IUserGridState {
-  chosenFigure: {
+interface IChosenFigure {
+  chosenFigure:{
     type: string,
-    position: [x:number, y:number]
-  } | null
+    position: [x:number, y:number]} | null
+}
+
+interface IUserGridState extends IChosenFigure {
+  currentMover: FigureColor.BLACK|FigureColor.WHITE,
+  gameStats: {from:number[], to:string}[],
+  defeatedFigures: {
+    black :string [],
+    white :string []
+  }
 }
 
 const initialState:IUserGridState = {
-  chosenFigure: null
+  chosenFigure: null,
+  currentMover: FigureColor.WHITE,
+  gameStats: [],
+  defeatedFigures: {
+    black: [],
+    white: []
+  }
 };
 
 const userGridSlice = createSlice({

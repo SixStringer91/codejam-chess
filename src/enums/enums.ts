@@ -2,6 +2,11 @@ export enum MagicNumbers {
   gridSize = 8,
 }
 
+export enum FigureColor {
+  BLACK = 'BLACK',
+  WHITE = 'WHITE'
+}
+
 export enum ChessFigures {
   HORSE = 'HORSE',
   KING = 'KING',
@@ -11,11 +16,56 @@ export enum ChessFigures {
   PAWN = 'PAWN'
 }
 
-export enum ChessID {
-  H = ChessFigures.HORSE,
-  K = ChessFigures.KING,
-  R = ChessFigures.ROOK,
-  B = ChessFigures.BISHOP,
-  Q = ChessFigures.QUEEN,
-  P = ChessFigures.PAWN
-}
+export const ChessIDBlack = {
+  H: {
+    color: FigureColor.BLACK,
+    figure: ChessFigures.HORSE
+  },
+  K: {
+    color: FigureColor.BLACK,
+    figure: ChessFigures.KING
+  },
+  R: {
+    color: FigureColor.BLACK,
+    figure: ChessFigures.ROOK
+  },
+  B: {
+    color: FigureColor.BLACK,
+    figure: ChessFigures.BISHOP
+  },
+  Q: {
+    color: FigureColor.BLACK,
+    figure: ChessFigures.QUEEN
+  },
+  P: {
+    color: FigureColor.BLACK,
+    figure: ChessFigures.PAWN
+  }
+};
+
+export const ChessIDWhite = {
+  h: {
+    color: FigureColor.WHITE,
+    figure: ChessFigures.HORSE
+  },
+  k: {
+    color: FigureColor.WHITE,
+    figure: ChessFigures.KING
+  },
+  r: {
+    color: FigureColor.WHITE,
+    figure: ChessFigures.ROOK
+  },
+  b: {
+    color: FigureColor.WHITE,
+    figure: ChessFigures.BISHOP
+  },
+  q: {
+    color: FigureColor.WHITE,
+    figure: ChessFigures.QUEEN
+  },
+  p: {
+    color: FigureColor.WHITE,
+    figure: ChessFigures.PAWN
+  }
+};

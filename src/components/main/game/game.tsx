@@ -1,27 +1,35 @@
 import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/reducers/index';
-import { MagicNumbers, ChessID } from '../../../enums/enums';
+import {
+  MagicNumbers,
+  ChessIDBlack,
+  ChessIDWhite
+} from '../../../enums/enums';
 import './game.style.scss';
 import Figure from './figure/figure.component';
-import { figures } from './figure/figure.data';
+import { figures } from './figure/figure.rules';
 import Square from './square/square.component';
+import MoveSquare from './move_square/move_square.component';
 
 const chessMark = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 function Game() {
   const { chosenFigure } = useSelector((state: RootState) => state.userGrid);
   const {
-    H, K, R, B, Q, P
-  } = ChessID;
+  B, H, K, Q, R
+  } = ChessIDBlack;
+  const {
+    b, h, k, q, r
+  } = ChessIDWhite;
   const gridScheme = [
-    [R, 0, 0, Q, K, B, H, 0],
-    [P, P, P, P, P, P, P, P],
+    [R, H, B, Q, K, B, H, R],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, B, 0, Q, Q, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, K, 0, 0, H, 0],
-    [0, 0, 0, 0, 0, 0, 0, H],
-    [0, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [r, h, b, q, k, b, h, r]
   ];
 
   const squareDir = [
@@ -62,16 +70,17 @@ function Game() {
   const figuresOnGridList = gridScheme
     .map((col, y) => col
       .map((row, x) => (
-        row !== 0
+        typeof row !== 'number'
         && (
           <Figure
+            color={row.color}
             coords={[x, y]}
             key={`${row}-${x}-${y}`}
-            {...figures[row]}
+            {...figures[row.figure]}
           />
         )
       )).filter((row) => typeof row !== 'number'))
-    .reduce((a, b) => [...a, ...b]);
+    .reduce((summ, current) => [...summ, ...current]);
 
   const squareCheck = (square) => {
     if (chosenFigure) {
@@ -131,16 +140,7 @@ function Game() {
         }
       }
     }
-    return squareCoords.map((el) => (
-      <div
-        key={`can_move-${el.x}-${el.y}`}
-        className="can_move"
-        style={{
-          left: `${el.x * 70}px`,
-          top: `${el.y * 70}px`
-        }}
-      />
-    ));
+    return squareCoords.map((el) => <MoveSquare coords={[el.x, el.y]} />);
   };
   return (
     <>

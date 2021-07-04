@@ -14,15 +14,11 @@ $block-size:$grid-size/8;
   height:$block-size;
   background-color:red;
 }
-// .chess-square:hover{
-//   background-color:yellow !important;
-//   cursor: pointer;
-//   transition: background-color .2s;
-// }
 
 .figure{
   position:absolute;
   width:$block-size;
+  height: $block-size;
   cursor: pointer;
 }
 
