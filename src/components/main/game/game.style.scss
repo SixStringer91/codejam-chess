@@ -8,24 +8,28 @@ $block-size:$grid-size/8;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
   grid-template-rows:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
   margin: 0 auto;
-}
+
 .chess-square{
   width:$block-size;
   height:$block-size;
-  background-color:red;
+  background-color:#D00000;
 }
 
 .figure{
   position:absolute;
-  width:$block-size;
+  width:60px;
   height: $block-size;
   cursor: pointer;
+  filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5));
+  -webkit-filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5));
 }
+
 
 .can_move{
   position:absolute;
-  background-color:yellow;
+  background-color:#1EAE9B;
   width:$block-size;
   height:$block-size;
-  opacity: 0.5;
+  opacity: 0.8;
+}
 }

@@ -1,9 +1,15 @@
-import { ChessFigures } from '../../../../enums/enums';
+import {
+  ChessFigures,
+  FigureColor,
+  MagicNumbers
+} from '../../../../enums/enums';
 
 interface IMoveCheck {
   x: number;
   y: number;
 }
+
+const { BLACK, WHITE } = FigureColor;
 
 export const figures = {
   KING: {
@@ -51,8 +57,24 @@ export const figures = {
   },
   PAWN: {
     name: ChessFigures.PAWN,
-    moveCheck() {
-      console.log('хуй');
+    moveCheck(figure: IMoveCheck, square: IMoveCheck, color:FigureColor) {
+      if (color === BLACK) {
+        const check = (
+          (square.y === figure.y + 1)
+          || (figure.y === 1
+          && square.y === figure.y + 2))
+          && square.x === figure.x;
+        if (check) return true;
+      }
+      if (color === WHITE) {
+        const check = (
+          (square.y === figure.y - 1)
+          || (figure.y === MagicNumbers.gridSize - 2
+            && square.y === figure.y - 2))
+          && square.x === figure.x;
+        if (check) return true;
+      }
+      return false;
     }
   },
   ROOK: {

@@ -1,10 +1,10 @@
 export enum MagicNumbers {
-  gridSize = 8,
+  gridSize = 8
 }
 
 export enum FigureColor {
-  BLACK = 'BLACK',
-  WHITE = 'WHITE'
+  BLACK = '#FFC533',
+  WHITE = '#E0ECF6'
 }
 
 export enum ChessFigures {

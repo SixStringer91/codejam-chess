@@ -4,6 +4,7 @@ import { RootState } from '../redux/reducers/index';
 
 declare module 'react-redux' {
   interface DefaultRootState extends RootState {}
+  export default DefaultRootState;
 }
 
 declare module '*.svg' {

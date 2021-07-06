@@ -1,29 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FigureColor } from '../../enums/enums';
+import {
+  ChessIDBlack,
+  ChessIDWhite,
+  FigureColor
+} from '../../enums/enums';
+import { IFigure, IUserGridState } from '../../interfaces/interfaces';
 
-interface IChosenFigure {
-  chosenFigure:{
-    type: string,
-    position: [x:number, y:number]} | null
-}
-
-interface IUserGridState extends IChosenFigure {
-  currentMover: FigureColor.BLACK|FigureColor.WHITE,
-  gameStats: {from:number[], to:string}[],
-  defeatedFigures: {
-    black :string [],
-    white :string []
-  }
-}
+const {
+  B, H, K, Q, R, P
+} = ChessIDBlack;
+const {
+  b, h, k, q, r, p
+} = ChessIDWhite;
 
 const initialState:IUserGridState = {
   chosenFigure: null,
   currentMover: FigureColor.WHITE,
   gameStats: [],
   defeatedFigures: {
-    black: [],
-    white: []
-  }
+    [FigureColor.BLACK]: [],
+    [FigureColor.WHITE]: []
+  },
+  grid: [
+    [R, H, B, Q, K, B, H, R],
+    [P, P, P, P, P, P, P, P],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [p, p, p, p, p, p, p, p],
+    [r, h, b, q, k, b, h, r]
+  ]
 };
 
 const userGridSlice = createSlice({
@@ -31,14 +38,37 @@ const userGridSlice = createSlice({
   initialState,
   reducers: {
     setChosenFigure: (state, action) => {
-      state.chosenFigure = {
-        ...action.payload,
-        position: [...action.payload.position]
-      };
+      if (action.payload.color === state.currentMover) {
+        state.chosenFigure = {
+          ...action.payload,
+          position: [...action.payload.position]
+        };
+      }
+    },
+    figureMove: (state, action) => {
+      const { grid, chosenFigure, defeatedFigures } = state;
+      const { WHITE, BLACK } = FigureColor;
+      if (chosenFigure) {
+        const [fx, fy] = chosenFigure.position;
+        const [dx, dy] = action.payload;
+        const figure = <IFigure>grid[fy]![fx];
+        const beatedFigure = <IFigure>grid[dy]![dx];
+        grid[dy]![dx] = figure;
+        grid[fy]![fx] = 0;
+        if (beatedFigure) {
+          state.defeatedFigures[figure.color] = [
+            ...defeatedFigures[figure.color],
+            { ...beatedFigure, coords: [dx, dy] }];
+        }
+        state.grid = grid.map((row) => row.map((col) => col));
+        state.chosenFigure = null;
+        state.currentMover = figure.color === WHITE ? BLACK : WHITE;
+      }
     }
   }
 });
 export const {
-  setChosenFigure
+  setChosenFigure,
+  figureMove
 } = userGridSlice.actions;
 export default userGridSlice.reducer;

@@ -31,7 +31,7 @@ function Figure(props: IFigureProps) {
   };
   return (
     <svg
-      viewBox="0 0 298 298"
+      viewBox="-10 0 298 298"
       className="figure"
       style={{ left, top }}
       onClick={() => dispatch(setChosenFigure(figureProps))}

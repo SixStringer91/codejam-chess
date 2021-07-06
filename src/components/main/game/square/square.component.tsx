@@ -21,7 +21,7 @@ function Square(props: ISquareProps) {
         style={{
           backgroundColor: chosenFigure
           && chosenFigure.position[0] === coords[0]
-          && chosenFigure.position[1] === coords[1] ? 'green' : color,
+          && chosenFigure.position[1] === coords[1] ? '#548c2f' : color,
           left: setPosition(coords[1]),
           top: setPosition(coords[0])
         }}
