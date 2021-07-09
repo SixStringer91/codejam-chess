@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { chessMark, squareDir } from '../../../../utils/square_directions';
-import { ChessFigures } from '../../../../enums/enums';
+import { ChessFigures, FigureColor } from '../../../../enums/enums';
 import { figures } from '../figure/figure.rules';
 
 const {
@@ -88,16 +88,42 @@ export const generateMoves = (grid, figure, Component)
     }
     if (figure.type === HORSE) {
       for (let x = 0; x < 8; x++) {
-        if (squareCheck({ x, y: i }, figure) && !grid[i][x]) {
+        const check = squareCheck({ x, y: i }, figure)
+        && (!grid[i][x] || grid[i][x].color !== figure.color);
+        if (check) {
           squareCoords.push({ x, y: i });
         }
       }
     }
     if (figure.type === PAWN) {
-      for (let x = 0; x < 8; x++) {
-        if (squareCheck({ x, y: i }, figure, figure.color)) {
-          squareCoords.push({ x, y: i });
+      let x = figureDir.x + squareDir[i].x;
+      let y = figureDir.y + squareDir[i].y;
+      while (x < grid.length && x > -1 && y < grid.length && y > -1) {
+        if (squareCheck({ x, y }, figure, figure.color) && !grid[y][x]) {
+          squareCoords.push({ x, y });
         }
+        if (figure.color === FigureColor.WHITE) {
+          if (grid[y][x] !== 0) {
+            if (Math.abs(figureDir.x - x) === 1
+            && figureDir.y - y === 1
+            && grid[y][x].color !== figure.color
+            ) {
+              squareCoords.push({ x, y });
+            }
+          }
+        }
+        if (figure.color === FigureColor.BLACK) {
+          if (grid[y][x]) {
+            if (Math.abs(figureDir.x - x) === 1
+            && y - figureDir.y === 1
+            && grid[y][x].color !== figure.color
+            ) {
+              squareCoords.push({ x, y });
+            }
+          }
+        }
+        x += squareDir[i].x;
+        y += squareDir[i].y;
       }
     }
   }

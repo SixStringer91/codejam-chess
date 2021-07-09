@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
-import settings from './settings';
 import userGrid from './grid.state';
 
-export const rootReducer = combineReducers({ settings, userGrid });
+export const rootReducer = combineReducers({ userGrid });
 
 export type RootState = ReturnType<typeof rootReducer>

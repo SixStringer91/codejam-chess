@@ -8,14 +8,14 @@ export interface IFigure {
   figure: ChessFigures;
 }
 
+export interface IDefeatedFigure extends IFigure {
+  coords: [x:number, y:number]
+}
+
 export interface IChosenFigure {
   chosenFigure:{
     type: string,
     position: [x:number, y:number]} | null
-}
-
-export interface IDefeatedFigure extends IFigure {
-  coords: [x:number, y:number]
 }
 
 export interface IUserGridState extends IChosenFigure {
