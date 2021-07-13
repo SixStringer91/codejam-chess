@@ -10,3 +10,6 @@ react-chess-game
 03.06.2021 - some refactor;
 04.06.2021 - add white figures;
 05.06.2021 - add half of pawn logic and black&&white sequence
+06.06.2021 - add pawn logic
+07.06.2021 - add horse logic
+08.06.2021 - do something

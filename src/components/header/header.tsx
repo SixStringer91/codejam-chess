@@ -1,13 +1,21 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+import logo from '../../assets/logo.svg';
+import title from '../../assets/title.svg';
+import './header.style.scss';
 
 function Header() {
   return (
-    <>
-      <NavLink to="/Game">Replay</NavLink>
-
-      <NavLink to="/notGame">To Lobby</NavLink>
-    </>
+    <div className="header">
+      <div className="logo-block">
+        <img alt="logo" className="logo" src={logo} />
+        <img alt="title" className="title" src={title} />
+      </div>
+      <div className="timer">таймер</div>
+      <div className="admit-loss">таймер</div>
+      <div className="toLobby">лобби</div>
+      {/* <NavLink to="/Game">Replay</NavLink>
+      <NavLink to="/notGame">To Lobby</NavLink> */}
+    </div>
   );
 }
 

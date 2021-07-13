@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fontsource/open-sans": "^4.5.0",
     "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -47,6 +48,7 @@
     "@types/axios": "^0.14.0",
     "@types/node-sass": "^4.11.1",
     "@types/react-redux": "^7.1.16",
+    "@types/react-router-dom": "^5.1.8",
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^4.28.0",

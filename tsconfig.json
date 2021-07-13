@@ -37,6 +37,7 @@
     "node_modules/"
   ],
   "include": [
-    "./src/**/*.ts"
-, "src/qt/qt.js"  ]
+    "src/components",
+    "src/@types/*.ts",
+    "./src/**/*.ts"]
 }

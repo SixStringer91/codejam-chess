@@ -1,0 +1,64 @@
+$header-size: 124px;
+$table-width: 136px;
+.player-block {
+  margin-top: auto;
+  .player-header {
+    box-sizing: border-box;
+    margin: 0 auto;
+    font-family: Open Sans;
+    font-size: 72px;
+    line-height: $header-size;
+    width: $header-size;
+    height: $header-size;
+    border: 5px solid #e8a87c;
+    border-radius: 50%;
+    text-align: center;
+    color: #40b3a2;
+    margin-bottom: 21px;
+    position: relative;
+    .player-mover {
+      display: block;
+      position: absolute;
+      top: -20px;
+      right: -5px;
+      line-height: 24px;
+      background-color: #c4c4c4;
+      width: 48px;
+      height: 48px;
+      border: 3px solid #e8a87c;
+      border-radius: 50%;
+      img {
+        width: 27px;
+        height: 27px;
+        display: inline-block;
+      }
+    }
+  }
+
+  .player-name {
+    padding: 4px 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 5px solid #f0f7f4;
+    background: #40b3a2;
+    color: #f0f7f4;
+    font-family: Open Sans;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 21px;
+  }
+
+  .player-table {
+    border: 5px solid #f0f7f4;
+    min-height: 502px;
+    display: flex;
+    background-color: #85cdca;
+    .move-table {
+      width: $table-width;
+      height: 502px;
+    }
+    .time-table {
+      width: $table-width;
+      height: 502px;
+    }
+  }
+}

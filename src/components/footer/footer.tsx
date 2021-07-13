@@ -1,9 +1,13 @@
-import React from 'react';
+import './footer.style.scss';
 
 function Footer() {
   return (
     <>
-      <div>Footer</div>
+      <div className="footer">
+        <div className="rs-school">
+          RS School 2021
+        </div>
+      </div>
     </>
   );
 }

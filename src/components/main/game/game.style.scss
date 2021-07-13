@@ -2,12 +2,15 @@ $grid-size:560px;
 $block-size:$grid-size/8;
 
 .grid {
+  align-self:center;
   position: relative;
   width: $grid-size;
   display: grid; 
+  max-height: $grid-size;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
   grid-template-rows:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
   margin: 0 auto;
+  transition: transform .9s;
 
 .chess-square{
   width:$block-size;

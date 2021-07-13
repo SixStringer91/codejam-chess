@@ -1,0 +1,25 @@
+.header {
+  background: #85CDCA;
+  border: 5px solid #40B3A2;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  .logo-block {
+    position: relative;
+  }
+  .title {
+    position: absolute;
+    top: 13px;
+    left: 31px;
+  }
+  .timer{
+
+  }
+  .admitLoss{
+
+  }
+  .toLobby{
+    
+  }
+}

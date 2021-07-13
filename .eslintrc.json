@@ -3,6 +3,9 @@
         "browser": true,
         "es2021": true
     },
+    "globals": {
+      "JSX": "readonly"
+    },
     "settings": {
         "import/resolver": {
           "node": {
@@ -30,6 +33,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "react/react-in-jsx-scope":"off",
       "jsx-a11y/no-static-element-interactions":"off",
       "jsx-a11y/no-noninteractive-element-interactions":"off",
       "jsx-a11y/click-events-have-key-events":"off",

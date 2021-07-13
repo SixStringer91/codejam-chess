@@ -1,15 +1,10 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setChosenFigure } from '../../../../redux/reducers/grid.state';
 import { figuresSVG } from './figures.img';
+import { FigureColor } from '../../../../enums/enums';
+import { IFigureProps } from '../../../../interfaces/interfaces';
 
-interface IFigureProps{
-  coords:number[],
-  name:string,
-  color: string
-}
-
-function Figure(props: IFigureProps) {
+const Figure = (props: IFigureProps) => {
   const dispatch = useDispatch();
   const {
     coords,
@@ -17,8 +12,9 @@ function Figure(props: IFigureProps) {
     color
   } = props;
 
-  const setPosition = (coord) => `${(560 / 8) * coord}px`;
+  const setPosition = (coord:number) => `${(560 / 8) * coord}px`;
 
+  const isBLack = color === FigureColor.BLACK;
   const figureProps = {
     type: name,
     position: [coords[0], coords[1]],
@@ -31,16 +27,18 @@ function Figure(props: IFigureProps) {
   };
   return (
     <svg
-      viewBox="-10 0 298 298"
+      viewBox={`${isBLack ? '15' : '-15'} 0 298 298`}
       className="figure"
-      style={{ left, top }}
+      style={{
+        left,
+        top,
+        transform: isBLack ? 'rotate(0.5turn)' : ''
+      }}
       onClick={() => dispatch(setChosenFigure(figureProps))}
     >
-      <g>
-        {figuresSVG[name](fill)}
-      </g>
+      <g>{figuresSVG[name]!(fill)}</g>
     </svg>
   );
-}
+};
 
 export default Figure;

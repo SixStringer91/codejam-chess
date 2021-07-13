@@ -5,25 +5,49 @@ import {
 
 export interface IFigure {
   color: FigureColor;
-  figure: ChessFigures;
+  type: ChessFigures;
 }
 
 export interface IDefeatedFigure extends IFigure {
-  coords: [x:number, y:number]
+  position: [x:number, y:number];
+  time: number;
 }
 
-export interface IChosenFigure {
-  chosenFigure:{
-    type: string,
-    position: [x:number, y:number]} | null
+export interface IMoves extends IDefeatedFigure {
+  prevPosition: [x:number, y:number]
 }
 
-export interface IUserGridState extends IChosenFigure {
+export interface IChosenFigure extends IFigure {
+  position: [x:number, y:number];
+}
+
+export interface IUserGridState{
+  chosenFigure: IChosenFigure | null,
   currentMover: FigureColor.BLACK|FigureColor.WHITE,
   gameStats: {from:number[], to:string}[],
   defeatedFigures: {
     [FigureColor.BLACK] :IDefeatedFigure [],
     [FigureColor.WHITE] :IDefeatedFigure []
   },
+  moves: {
+    [FigureColor.BLACK] :IMoves [],
+    [FigureColor.WHITE] :IMoves []
+  },
   grid: (IFigure|0)[][]
+}
+
+export interface IFigureProps{
+  coords:[x:number, y:number],
+  name:string,
+  color: string
+}
+
+export interface ISquareProps {
+  coords: [x:number, y:number];
+  chessMark: string;
+  color: string;
+}
+
+export interface IMoveSquareProps {
+  coords: [x:number, y:number];
 }

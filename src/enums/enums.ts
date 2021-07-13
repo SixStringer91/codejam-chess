@@ -19,53 +19,53 @@ export enum ChessFigures {
 export const ChessIDBlack = {
   H: {
     color: FigureColor.BLACK,
-    figure: ChessFigures.HORSE
+    type: ChessFigures.HORSE
   },
   K: {
     color: FigureColor.BLACK,
-    figure: ChessFigures.KING
+    type: ChessFigures.KING
   },
   R: {
     color: FigureColor.BLACK,
-    figure: ChessFigures.ROOK
+    type: ChessFigures.ROOK
   },
   B: {
     color: FigureColor.BLACK,
-    figure: ChessFigures.BISHOP
+    type: ChessFigures.BISHOP
   },
   Q: {
     color: FigureColor.BLACK,
-    figure: ChessFigures.QUEEN
+    type: ChessFigures.QUEEN
   },
   P: {
     color: FigureColor.BLACK,
-    figure: ChessFigures.PAWN
+    type: ChessFigures.PAWN
   }
 };
 
 export const ChessIDWhite = {
   h: {
     color: FigureColor.WHITE,
-    figure: ChessFigures.HORSE
+    type: ChessFigures.HORSE
   },
   k: {
     color: FigureColor.WHITE,
-    figure: ChessFigures.KING
+    type: ChessFigures.KING
   },
   r: {
     color: FigureColor.WHITE,
-    figure: ChessFigures.ROOK
+    type: ChessFigures.ROOK
   },
   b: {
     color: FigureColor.WHITE,
-    figure: ChessFigures.BISHOP
+    type: ChessFigures.BISHOP
   },
   q: {
     color: FigureColor.WHITE,
-    figure: ChessFigures.QUEEN
+    type: ChessFigures.QUEEN
   },
   p: {
     color: FigureColor.WHITE,
-    figure: ChessFigures.PAWN
+    type: ChessFigures.PAWN
   }
 };

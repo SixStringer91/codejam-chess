@@ -2,6 +2,13 @@ import React, { ReactElement } from 'react';
 import { chessMark, squareDir } from '../../../../utils/square_directions';
 import { ChessFigures, FigureColor } from '../../../../enums/enums';
 import { figures } from '../figure/figure.rules';
+import {
+  IFigure,
+  IChosenFigure,
+  IFigureProps,
+  ISquareProps,
+  IMoveSquareProps
+} from '../../../../interfaces/interfaces';
 
 const {
   KING,
@@ -12,8 +19,8 @@ const {
   BISHOP
 } = ChessFigures;
 
-export const generateFigures = (grid, Component)
-: ReactElement<HTMLDivElement>[] => grid
+export const generateFigures = (grid:(IFigure|0)[][],
+  Component:React.FC<IFigureProps>) => grid
   .map((col, y) => col
     .map(
       (row, x) => typeof row !== 'number' && (
@@ -21,16 +28,18 @@ export const generateFigures = (grid, Component)
           color={row.color}
           coords={[x, y]}
           key={`${JSON.stringify(row)}-${x}-${y}`}
-          {...figures[row.figure]}
+          name={ChessFigures[row.type]}
         />
       )
     )
     .filter((row) => typeof row !== 'number'))
   .reduce((summ, current) => [...summ, ...current]);
 
-export const generateSquares = (grid, Component)
-: ReactElement<HTMLDivElement>[] => {
-  let isBLack = true;
+export const generateSquares = (
+  grid:(IFigure|0)[][],
+  Component:React.FC<ISquareProps>
+) => {
+  let isBLack = false;
   const gridRender: ReactElement<HTMLDivElement>[] = [];
   for (let y = 0; y < grid.length; y++) {
     isBLack = !isBLack;
@@ -49,18 +58,25 @@ export const generateSquares = (grid, Component)
   return gridRender;
 };
 
-export const squareCheck = (square, figure, color?) => {
+export const squareCheck = (
+  square:{x:number, y:number},
+  figure:IChosenFigure
+) => {
   if (figure) {
     const figureCoords = {
       x: figure.position[0],
       y: figure.position[1]
     };
-    return figures[figure.type].moveCheck(figureCoords, square, color);
+    return figures[figure.type]!.moveCheck(figureCoords, square, figure.color);
   }
   return false;
 };
 
-export const generateMoves = (grid, figure, Component)
+export const generateMoves = (
+  grid:(IFigure|0)[][],
+  figure:IChosenFigure,
+  Component:React.FC<IMoveSquareProps>
+)
 : ReactElement<HTMLDivElement>[] => {
   const squareCoords = [];
   const figureDir = {
@@ -68,62 +84,68 @@ export const generateMoves = (grid, figure, Component)
     y: figure.position[1]
   };
   for (let i = 0; i < grid.length; i++) {
-    if (figure.type === BISHOP || KING || ROOK || QUEEN) {
-      let x = figureDir.x + squareDir[i].x;
-      let y = figureDir.y + squareDir[i].y;
+    if (figure.type === BISHOP
+      || figure.type === KING
+      || figure.type === ROOK
+      || figure.type === QUEEN) {
+      let x = figureDir.x + squareDir[i]!.x;
+      let y = figureDir.y + squareDir[i]!.y;
       while (x < grid.length && x > -1 && y < grid.length && y > -1) {
-        if (grid[y][x].color === figure.color) {
+        const currentSquare = grid[y]![x];
+        if (currentSquare !== 0 && currentSquare!.color === figure.color) {
           break;
         }
         if (squareCheck({ x, y }, figure)) {
           squareCoords.push({ x, y });
         }
-        if (grid[y][x]
-            && grid[y][x].color !== figure.color) {
+        if (currentSquare
+            && currentSquare!.color !== figure.color) {
           break;
         }
-        x += squareDir[i].x;
-        y += squareDir[i].y;
+        x += squareDir[i]!.x;
+        y += squareDir[i]!.y;
       }
     }
     if (figure.type === HORSE) {
       for (let x = 0; x < 8; x++) {
+        const currentSquare = grid[i]![x];
         const check = squareCheck({ x, y: i }, figure)
-        && (!grid[i][x] || grid[i][x].color !== figure.color);
+        && (!currentSquare || currentSquare.color !== figure.color);
         if (check) {
           squareCoords.push({ x, y: i });
         }
       }
     }
     if (figure.type === PAWN) {
-      let x = figureDir.x + squareDir[i].x;
-      let y = figureDir.y + squareDir[i].y;
-      while (x < grid.length && x > -1 && y < grid.length && y > -1) {
-        if (squareCheck({ x, y }, figure, figure.color) && !grid[y][x]) {
+      let x = figureDir.x + squareDir[i]!.x;
+      let y = figureDir.y + squareDir[i]!.y;
+      while (x < grid.length && x >= 0 && y < grid.length && y >= 0) {
+        const currentSquare = grid[y]![x];
+        if (squareCheck({ x, y }, figure) && !currentSquare) {
           squareCoords.push({ x, y });
         }
         if (figure.color === FigureColor.WHITE) {
-          if (grid[y][x] !== 0) {
+          if (currentSquare !== 0) {
             if (Math.abs(figureDir.x - x) === 1
             && figureDir.y - y === 1
-            && grid[y][x].color !== figure.color
+            && currentSquare!.color !== figure.color
             ) {
               squareCoords.push({ x, y });
             }
           }
         }
         if (figure.color === FigureColor.BLACK) {
-          if (grid[y][x]) {
+          if (currentSquare) {
             if (Math.abs(figureDir.x - x) === 1
             && y - figureDir.y === 1
-            && grid[y][x].color !== figure.color
+            && currentSquare.color !== figure.color
             ) {
               squareCoords.push({ x, y });
             }
           }
         }
-        x += squareDir[i].x;
-        y += squareDir[i].y;
+        x += squareDir[i]!.x;
+        y += squareDir[i]!.y;
       }
     }
   }

@@ -1,15 +1,11 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
+import { IMoveSquareProps } from '../../../../interfaces/interfaces';
 import { figureMove } from '../../../../redux/reducers/grid.state';
-
-interface IMoveSquareProps {
-  coords: [x:number, y:number];
-}
 
 function MoveSquare(props: IMoveSquareProps) {
   const dispatch = useDispatch();
   const { coords } = props;
-  const setPosition = (coord) => `${(560 / 8) * coord}px`;
+  const setPosition = (coord:number) => `${(560 / 8) * coord}px`;
   return (
     <>
       <div

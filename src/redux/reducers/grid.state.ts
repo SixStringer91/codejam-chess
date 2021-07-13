@@ -21,6 +21,10 @@ const initialState:IUserGridState = {
     [FigureColor.BLACK]: [],
     [FigureColor.WHITE]: []
   },
+  moves: {
+    [FigureColor.BLACK]: [],
+    [FigureColor.WHITE]: []
+  },
   grid: [
     [R, H, B, Q, K, B, H, R],
     [P, P, P, P, P, P, P, P],
@@ -58,11 +62,20 @@ const userGridSlice = createSlice({
         if (beatedFigure) {
           state.defeatedFigures[figure.color] = [
             ...defeatedFigures[figure.color],
-            { ...beatedFigure, coords: [dx, dy] }];
+            { ...beatedFigure, position: [dx, dy], time: Date.now() }];
         }
         state.grid = grid.map((row) => row.map((col) => col));
         state.chosenFigure = null;
         state.currentMover = figure.color === WHITE ? BLACK : WHITE;
+        state.moves[chosenFigure.color] = [
+          ...state.moves[chosenFigure.color], {
+            prevPosition: [fx, fy],
+            position: [dx, dy],
+            color: figure.color,
+            time: Date.now(),
+            type: figure.type
+          }
+        ];
       }
     }
   }

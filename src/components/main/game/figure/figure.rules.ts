@@ -9,9 +9,23 @@ interface IMoveCheck {
   y: number;
 }
 
+type IMoveCheckFunction = (
+  figure: IMoveCheck,
+  square: IMoveCheck,
+  color?:FigureColor) => boolean
+
+interface IFigureMoveValidationElement {
+  name:string,
+  moveCheck: IMoveCheckFunction
+}
+
+interface IFigureMoveValidation {
+  [key:string]:IFigureMoveValidationElement;
+}
+
 const { BLACK, WHITE } = FigureColor;
 
-export const figures = {
+export const figures:IFigureMoveValidation = {
   KING: {
     name: ChessFigures.KING,
     moveCheck(figure: IMoveCheck, square: IMoveCheck) {
@@ -57,7 +71,7 @@ export const figures = {
   },
   PAWN: {
     name: ChessFigures.PAWN,
-    moveCheck(figure: IMoveCheck, square: IMoveCheck, color:FigureColor) {
+    moveCheck(figure: IMoveCheck, square: IMoveCheck, color?:FigureColor) {
       if (color === BLACK) {
         const check = (
           (square.y === figure.y + 1)
@@ -70,7 +84,7 @@ export const figures = {
         const check = (
           (square.y === figure.y - 1)
           || (figure.y === MagicNumbers.gridSize - 2
-            && square.y === figure.y - 2))
+          && square.y === figure.y - 2))
           && square.x === figure.x;
         if (check) return true;
       }
