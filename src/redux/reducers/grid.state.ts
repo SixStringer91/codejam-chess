@@ -14,6 +14,7 @@ const {
 } = ChessIDWhite;
 
 const initialState:IUserGridState = {
+  time: 60 * 60,
   chosenFigure: null,
   currentMover: FigureColor.WHITE,
   gameStats: [],
@@ -41,6 +42,9 @@ const userGridSlice = createSlice({
   name: 'grid-state',
   initialState,
   reducers: {
+    setTime: (state, action) => {
+      state.time = action.payload;
+    },
     setChosenFigure: (state, action) => {
       if (action.payload.color === state.currentMover) {
         state.chosenFigure = {
@@ -50,7 +54,9 @@ const userGridSlice = createSlice({
       }
     },
     figureMove: (state, action) => {
-      const { grid, chosenFigure, defeatedFigures } = state;
+      const {
+        grid, chosenFigure, defeatedFigures, time
+      } = state;
       const { WHITE, BLACK } = FigureColor;
       if (chosenFigure) {
         const [fx, fy] = chosenFigure.position;
@@ -72,7 +78,7 @@ const userGridSlice = createSlice({
             prevPosition: [fx, fy],
             position: [dx, dy],
             color: figure.color,
-            time: Date.now(),
+            time: 60 * 60 - time,
             type: figure.type
           }
         ];
@@ -82,6 +88,7 @@ const userGridSlice = createSlice({
 });
 export const {
   setChosenFigure,
-  figureMove
+  figureMove,
+  setTime
 } = userGridSlice.actions;
 export default userGridSlice.reducer;

@@ -13,3 +13,7 @@ react-chess-game
 06.06.2021 - add pawn logic
 07.06.2021 - add horse logic
 08.06.2021 - do something
+09.06.2021 - add interface 
+10.06.2021 - add some interface logic
+11.06.2021 - add timer
+12.06.2021 - add stats visual

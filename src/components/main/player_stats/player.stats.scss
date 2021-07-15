@@ -48,6 +48,9 @@ $table-width: 136px;
   }
 
   .player-table {
+    font-family: Open Sans;
+    font-weight: bolder;
+    color: white;
     border: 5px solid #f0f7f4;
     min-height: 502px;
     display: flex;
@@ -55,10 +58,23 @@ $table-width: 136px;
     .move-table {
       width: $table-width;
       height: 502px;
+      div {
+        height: 35px;
+        display: flex;
+        align-items: flex-end;
+        animation:.5s anim;
+      }
     }
     .time-table {
-      width: $table-width;
-      height: 502px;
+      div {
+        justify-content: center;
+      }
     }
   }
 }
+
+@keyframes anim {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+ }
+

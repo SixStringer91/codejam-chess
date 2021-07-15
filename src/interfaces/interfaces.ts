@@ -21,21 +21,6 @@ export interface IChosenFigure extends IFigure {
   position: [x:number, y:number];
 }
 
-export interface IUserGridState{
-  chosenFigure: IChosenFigure | null,
-  currentMover: FigureColor.BLACK|FigureColor.WHITE,
-  gameStats: {from:number[], to:string}[],
-  defeatedFigures: {
-    [FigureColor.BLACK] :IDefeatedFigure [],
-    [FigureColor.WHITE] :IDefeatedFigure []
-  },
-  moves: {
-    [FigureColor.BLACK] :IMoves [],
-    [FigureColor.WHITE] :IMoves []
-  },
-  grid: (IFigure|0)[][]
-}
-
 export interface IFigureProps{
   coords:[x:number, y:number],
   name:string,
@@ -50,4 +35,20 @@ export interface ISquareProps {
 
 export interface IMoveSquareProps {
   coords: [x:number, y:number];
+}
+
+export interface IUserGridState{
+  time:number,
+  chosenFigure: IChosenFigure | null,
+  currentMover: FigureColor.BLACK|FigureColor.WHITE,
+  gameStats: {from:number[], to:string}[],
+  defeatedFigures: {
+    [FigureColor.BLACK] :IDefeatedFigure [],
+    [FigureColor.WHITE] :IDefeatedFigure []
+  },
+  moves: {
+    [FigureColor.BLACK] :IMoves [],
+    [FigureColor.WHITE] :IMoves []
+  },
+  grid: (IFigure|0)[][]
 }
