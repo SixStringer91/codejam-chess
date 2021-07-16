@@ -1,5 +1,12 @@
 export enum MagicNumbers {
-  gridSize = 8
+  GRID_SIZE = 8,
+  HOUR = 60 * 60
+}
+
+export enum GameModes {
+  LOCAL_PVP = 'LOCAL_PVP',
+  NETWORK_PVP = 'NETWORK_PVP',
+  LOCAL_PVE = 'LOCAL_PVE'
 }
 
 export enum FigureColor {

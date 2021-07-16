@@ -1,4 +1,5 @@
 import {
+  GameModes,
   FigureColor,
   ChessFigures
 } from '../enums/enums';
@@ -38,6 +39,8 @@ export interface IMoveSquareProps {
 }
 
 export interface IUserGridState{
+  gameCycle: boolean,
+  gameMode: GameModes
   time:number,
   chosenFigure: IChosenFigure | null,
   currentMover: FigureColor.BLACK|FigureColor.WHITE,

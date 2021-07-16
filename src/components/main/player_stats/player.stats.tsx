@@ -14,41 +14,52 @@ function PlayerStats(props: { color: FigureColor }) {
     (state: RootState) => state.userGrid.currentMover
   );
   const moves = useSelector((state:RootState) => state.userGrid.moves[color]);
-
+  const gameCycle = useSelector((state:RootState) => state.userGrid.gameCycle);
   const isBLack = color === FigureColor.BLACK;
 
-  const movesRender = useMemo(() => moves.map((move) => (
-    <div key={JSON.stringify(move)}>
-      <svg
-        viewBox={`${isBLack ? '15' : '-15'} 0 298 298`}
-        className="figure"
-        style={{
-          width: '30px',
-          height: 'auto'
-        }}
-      >
-        <g>{figuresSVG[move.type]!(move.color)}</g>
-      </svg>
-      <span>
-        {chessMark[move.prevPosition[0]]}
-        {move.prevPosition[1] + 1}
-        -
-        {chessMark[move.position[0]]}
-        {move.position[1] + 1}
-      </span>
-    </div>
-  )).reverse(), [moves]);
+  const movesRender = useMemo(() => {
+    if (gameCycle) {
+      return moves.map((move) => (
+        <div key={JSON.stringify(move)}>
+          <svg
+            viewBox={`${isBLack ? '15' : '-15'} 0 298 298`}
+            className="figure"
+            style={{
+              width: '30px',
+              height: 'auto'
+            }}
+          >
+            <g>{figuresSVG[move.type]!(move.color)}</g>
+          </svg>
+          <span>
+            {chessMark[move.prevPosition[0]]}
+            {move.prevPosition[1] + 1}
+            -
+            {chessMark[move.position[0]]}
+            {move.position[1] + 1}
+          </span>
+        </div>
+      )).reverse();
+    }
+    return '';
+  }, [moves, gameCycle]);
 
-  const timeRender = useMemo(() => moves.map(
-    (move) => (
-      <div key={`time-${move.time}`}>
-        <span>{timeFormatHandle(move.time)}</span>
-      </div>
-    )
-  ).reverse(), [moves]);
-  return (
-    <div className="player-block">
-      <div className="player-header">
+  const timeRender = useMemo(() => {
+    if (gameCycle) {
+      return moves
+        .map((move) => (
+          <div key={`time-${move.time}`}>
+            <span>{timeFormatHandle(move.time)}</span>
+          </div>
+        ))
+        .reverse();
+    }
+    return '';
+  }, [moves, gameCycle]);
+
+  const currentMoverLabel = useMemo(() => {
+    if (gameCycle) {
+      return (
         <div
           className="player-mover"
           style={{
@@ -57,10 +68,21 @@ function PlayerStats(props: { color: FigureColor }) {
         >
           <img src={mover} alt="mover" />
         </div>
+      );
+    }
+    return '';
+  }, [gameCycle, currentMover]);
+  return (
+    <div className="player-block">
+      <div className="player-header">
+        {currentMoverLabel}
         <span>J</span>
       </div>
       <div className="player-name">Danik</div>
-      <div className="player-table">
+      <div
+        className="player-table"
+        style={{ visibility: gameCycle ? 'visible' : 'hidden' }}
+      >
         <div className="move-table">{movesRender}</div>
         <div className="move-table time-table">{timeRender}</div>
       </div>

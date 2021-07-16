@@ -83,7 +83,7 @@ export const figures:IFigureMoveValidation = {
       if (color === WHITE) {
         const check = (
           (square.y === figure.y - 1)
-          || (figure.y === MagicNumbers.gridSize - 2
+          || (figure.y === MagicNumbers.GRID_SIZE - 2
           && square.y === figure.y - 2))
           && square.x === figure.x;
         if (check) return true;

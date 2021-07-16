@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   ChessIDBlack,
   ChessIDWhite,
-  FigureColor
+  FigureColor,
+  GameModes
 } from '../../enums/enums';
 import { IFigure, IUserGridState } from '../../interfaces/interfaces';
 
@@ -14,6 +15,8 @@ const {
 } = ChessIDWhite;
 
 const initialState:IUserGridState = {
+  gameCycle: false,
+  gameMode: GameModes.NETWORK_PVP,
   time: 60 * 60,
   chosenFigure: null,
   currentMover: FigureColor.WHITE,
@@ -42,6 +45,12 @@ const userGridSlice = createSlice({
   name: 'grid-state',
   initialState,
   reducers: {
+    setGameCycle: (state) => {
+      state.gameCycle = !state.gameCycle;
+    },
+    setGameMode: (state, action) => {
+      state.gameMode = action.payload;
+    },
     setTime: (state, action) => {
       state.time = action.payload;
     },
@@ -89,6 +98,8 @@ const userGridSlice = createSlice({
 export const {
   setChosenFigure,
   figureMove,
-  setTime
+  setTime,
+  setGameMode,
+  setGameCycle
 } = userGridSlice.actions;
 export default userGridSlice.reducer;
