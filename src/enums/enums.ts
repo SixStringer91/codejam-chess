@@ -9,6 +9,11 @@ export enum GameModes {
   LOCAL_PVE = 'LOCAL_PVE'
 }
 
+export enum PopupMode {
+  EDIT_NAME = 'EDIT_NAME',
+  SHOW_WINNER = 'SHOW_WINNER'
+}
+
 export enum FigureColor {
   BLACK = '#FFC533',
   WHITE = '#E0ECF6'

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import {
   ChessIDBlack,
   ChessIDWhite,
@@ -14,8 +14,11 @@ const {
   b, h, k, q, r, p
 } = ChessIDWhite;
 
-const initialState:IUserGridState = {
+const initialState: IUserGridState = {
+  player: 'Player 1',
+  enemy: 'Player 2',
   gameCycle: false,
+  winner: null,
   gameMode: GameModes.NETWORK_PVP,
   time: 60 * 60,
   chosenFigure: null,
@@ -35,7 +38,7 @@ const initialState:IUserGridState = {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, K, 0, 0, 0, 0],
     [p, p, p, p, p, p, p, p],
     [r, h, b, q, k, b, h, r]
   ]
@@ -45,6 +48,9 @@ const userGridSlice = createSlice({
   name: 'grid-state',
   initialState,
   reducers: {
+    setPlayerName: (state, action) => {
+      state.player = action.payload ? action.payload : state.player;
+    },
     setGameCycle: (state) => {
       state.gameCycle = !state.gameCycle;
     },
@@ -65,25 +71,30 @@ const userGridSlice = createSlice({
     figureMove: (state, action) => {
       const {
         grid, chosenFigure, defeatedFigures, time
-      } = state;
+      } = current(state);
       const { WHITE, BLACK } = FigureColor;
       if (chosenFigure) {
         const [fx, fy] = chosenFigure.position;
         const [dx, dy] = action.payload;
+        if (grid[dy]![dx] === K || grid[dy]![dx] === k) {
+          state.winner = chosenFigure.color;
+        }
         const figure = <IFigure>grid[fy]![fx];
         const beatedFigure = <IFigure>grid[dy]![dx];
-        grid[dy]![dx] = figure;
-        grid[fy]![fx] = 0;
+        state.grid[dy]![dx] = figure;
+        state.grid[fy]![fx] = 0;
         if (beatedFigure) {
           state.defeatedFigures[figure.color] = [
             ...defeatedFigures[figure.color],
-            { ...beatedFigure, position: [dx, dy], time: Date.now() }];
+            { ...beatedFigure, position: [dx, dy], time: Date.now() }
+          ];
         }
-        state.grid = grid.map((row) => row.map((col) => col));
+        // state.grid = grid.map((row) => row.map((col) => col));
         state.chosenFigure = null;
         state.currentMover = figure.color === WHITE ? BLACK : WHITE;
         state.moves[chosenFigure.color] = [
-          ...state.moves[chosenFigure.color], {
+          ...state.moves[chosenFigure.color],
+          {
             prevPosition: [fx, fy],
             position: [dx, dy],
             color: figure.color,
@@ -100,6 +111,7 @@ export const {
   figureMove,
   setTime,
   setGameMode,
-  setGameCycle
+  setGameCycle,
+  setPlayerName
 } = userGridSlice.actions;
 export default userGridSlice.reducer;

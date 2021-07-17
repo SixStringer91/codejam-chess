@@ -1,7 +1,8 @@
 import {
   GameModes,
   FigureColor,
-  ChessFigures
+  ChessFigures,
+  PopupMode
 } from '../enums/enums';
 
 export interface IFigure {
@@ -39,6 +40,9 @@ export interface IMoveSquareProps {
 }
 
 export interface IUserGridState{
+  player: string,
+  winner: FigureColor | null
+  enemy: string,
   gameCycle: boolean,
   gameMode: GameModes
   time:number,
@@ -54,4 +58,10 @@ export interface IUserGridState{
     [FigureColor.WHITE] :IMoves []
   },
   grid: (IFigure|0)[][]
+}
+
+export interface IPopups {
+  isOpen: boolean,
+  playerNameInput: string,
+  mode: PopupMode | null
 }

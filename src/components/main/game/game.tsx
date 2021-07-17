@@ -1,21 +1,31 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/reducers/index';
 import './game.style.scss';
 import Figure from './figure/figure.component';
 import Square from './square/square.component';
 import MoveSquare from './move_square/move_square.component';
-import { FigureColor } from '../../../enums/enums';
+import { FigureColor, PopupMode } from '../../../enums/enums';
 import {
   generateFigures,
   generateMoves,
   generateSquares
 } from './game_utils/game.utils';
+import { setPopup } from '../../../redux/reducers/popup.state';
 
 function Game() {
-  const { chosenFigure, currentMover, grid } = useSelector(
+  const dispatch = useDispatch();
+  const {
+    chosenFigure, currentMover, grid, winner
+  } = useSelector(
     (state: RootState) => state.userGrid
   );
+
+  useEffect(() => {
+    if (winner) {
+      dispatch(setPopup({ isOpen: true, mode: PopupMode.SHOW_WINNER }));
+    }
+  }, [winner]);
 
   const figuresList = useMemo(() => generateFigures(grid, Figure), [grid]);
 

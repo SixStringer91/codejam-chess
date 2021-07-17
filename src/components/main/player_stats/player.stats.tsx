@@ -1,45 +1,50 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import mover from '../../../assets/mover.png';
-import { FigureColor } from '../../../enums/enums';
+import { FigureColor, PopupMode } from '../../../enums/enums';
 import { RootState } from '../../../redux/reducers';
 import { figuresSVG } from '../game/figure/figures.img';
 import { chessMark } from '../../../utils/square_directions';
 import './player.stats.scss';
 import { timeFormatHandle } from '../../../utils/timer.string-maker';
+import { setPopup } from '../../../redux/reducers/popup.state';
 
-function PlayerStats(props: { color: FigureColor }) {
-  const { color } = props;
+function PlayerStats(props: { color: FigureColor; type: 'player' | 'enemy' }) {
+  const { color, type } = props;
+  const dispatch = useDispatch();
+  const name = useSelector((state: RootState) => state.userGrid[type]);
   const currentMover = useSelector(
     (state: RootState) => state.userGrid.currentMover
   );
-  const moves = useSelector((state:RootState) => state.userGrid.moves[color]);
-  const gameCycle = useSelector((state:RootState) => state.userGrid.gameCycle);
+  const moves = useSelector((state: RootState) => state.userGrid.moves[color]);
+  const gameCycle = useSelector((state: RootState) => state.userGrid.gameCycle);
   const isBLack = color === FigureColor.BLACK;
 
   const movesRender = useMemo(() => {
     if (gameCycle) {
-      return moves.map((move) => (
-        <div key={JSON.stringify(move)}>
-          <svg
-            viewBox={`${isBLack ? '15' : '-15'} 0 298 298`}
-            className="figure"
-            style={{
-              width: '30px',
-              height: 'auto'
-            }}
-          >
-            <g>{figuresSVG[move.type]!(move.color)}</g>
-          </svg>
-          <span>
-            {chessMark[move.prevPosition[0]]}
-            {move.prevPosition[1] + 1}
-            -
-            {chessMark[move.position[0]]}
-            {move.position[1] + 1}
-          </span>
-        </div>
-      )).reverse();
+      return moves
+        .map((move) => (
+          <div key={JSON.stringify(move)}>
+            <svg
+              viewBox={`${isBLack ? '15' : '-15'} 0 298 298`}
+              className="figure"
+              style={{
+                width: '30px',
+                height: 'auto'
+              }}
+            >
+              <g>{figuresSVG[move.type]!(move.color)}</g>
+            </svg>
+            <span>
+              {chessMark[move.prevPosition[0]]}
+              {move.prevPosition[1] + 1}
+              -
+              {chessMark[move.position[0]]}
+              {move.position[1] + 1}
+            </span>
+          </div>
+        ))
+        .reverse();
     }
     return '';
   }, [moves, gameCycle]);
@@ -63,7 +68,7 @@ function PlayerStats(props: { color: FigureColor }) {
         <div
           className="player-mover"
           style={{
-            visibility: `${color === currentMover ? 'visible' : 'hidden'}`
+            opacity: `${color === currentMover ? '1' : '0'}`
           }}
         >
           <img src={mover} alt="mover" />
@@ -76,13 +81,17 @@ function PlayerStats(props: { color: FigureColor }) {
     <div className="player-block">
       <div className="player-header">
         {currentMoverLabel}
-        <span>J</span>
+        <span>{name[0]?.toUpperCase()}</span>
       </div>
-      <div className="player-name">Danik</div>
       <div
-        className="player-table"
-        style={{ visibility: gameCycle ? 'visible' : 'hidden' }}
+        onClick={() => {
+          dispatch(setPopup({ isOpen: true, mode: PopupMode.EDIT_NAME }));
+        }}
+        className="player-name"
       >
+        {name}
+      </div>
+      <div className="player-table" style={{ opacity: gameCycle ? '1' : '0' }}>
         <div className="move-table">{movesRender}</div>
         <div className="move-table time-table">{timeRender}</div>
       </div>

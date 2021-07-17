@@ -35,7 +35,14 @@ function Menu() {
           {gameMode === NETWORK_PVP ? 'online' : 'offline'}
         </button>
         Start
-        <button type="button" className="button-replays">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          type="button"
+          className="button-replays"
+        >
           view replays
         </button>
       </NavLink>
