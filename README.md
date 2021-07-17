@@ -18,3 +18,4 @@ react-chess-game
 11.06.2021 - add timer
 12.06.2021 - add stats visual
 13.06.2021 - add lobby
+14.06.2021 - add new reducer
