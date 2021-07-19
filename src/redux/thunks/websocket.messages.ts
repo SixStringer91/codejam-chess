@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { SocketEvents } from '../../enums/enums';
-import { figureMove } from '../reducers/grid.state';
+import { figureMove, setChosenFigure } from '../reducers/grid.state';
 import { setOpponentConnection } from '../reducers/network.state';
 
 export const websocketMessagesHandler = (dispatch: Dispatch<any>, msg: any) => {
@@ -11,7 +11,8 @@ export const websocketMessagesHandler = (dispatch: Dispatch<any>, msg: any) => {
 
   switch (event) {
     case MOVE:
-      dispatch(figureMove(msg.move));
+      dispatch(setChosenFigure(msg.params.chosenFigure));
+      dispatch(figureMove(msg.params.dir));
       break;
     case START:
       dispatch(setOpponentConnection(msg));

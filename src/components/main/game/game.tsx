@@ -5,7 +5,7 @@ import './game.style.scss';
 import Figure from './figure/figure.component';
 import Square from './square/square.component';
 import MoveSquare from './move_square/move_square.component';
-import { FigureColor, PopupMode } from '../../../enums/enums';
+import { FigureColor, GameModes, PopupMode } from '../../../enums/enums';
 import {
   generateFigures,
   generateMoves,
@@ -21,11 +21,25 @@ function Game() {
     (state: RootState) => state.userGrid
   );
 
+  const { mode, playerColor } = useSelector(
+    (state: RootState) => state.websockets
+  );
+
   useEffect(() => {
     if (winner) {
       dispatch(setPopup({ isOpen: true, mode: PopupMode.SHOW_WINNER }));
     }
   }, [winner]);
+
+  const transformRotater = () => {
+    if (mode === GameModes.NETWORK_PVP && playerColor === FigureColor.BLACK) {
+      return 'rotate(0.5turn)';
+    }
+    if (mode === GameModes.LOCAL_PVP && currentMover === FigureColor.BLACK) {
+      return 'rotate(0.5turn)';
+    }
+    return '';
+  };
 
   const figuresList = useMemo(() => generateFigures(grid, Figure), [grid]);
 
@@ -39,7 +53,7 @@ function Game() {
     <div
       className="grid"
       style={{
-        transform: currentMover === FigureColor.BLACK ? 'rotate(0.5turn)' : ''
+        transform: transformRotater()
       }}
     >
       {figuresList}

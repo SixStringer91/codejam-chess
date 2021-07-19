@@ -1,0 +1,27 @@
+.grid {
+  align-self: center;
+  position: relative;
+  width: 560px;
+  display: grid;
+  max-height: 560px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin: 0 auto;
+  transition: transform .9s; }
+  .grid .chess-square {
+    width: 70px;
+    height: 70px;
+    background-color: #D00000; }
+  .grid .figure {
+    position: absolute;
+    width: 60px;
+    height: 70px;
+    cursor: pointer;
+    filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5));
+    -webkit-filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5)); }
+  .grid .can_move {
+    position: absolute;
+    background-color: #1EAE9B;
+    width: 70px;
+    height: 70px;
+    opacity: 0.8; }

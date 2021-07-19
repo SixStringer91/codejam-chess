@@ -1,18 +1,19 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setChosenFigure } from '../../../../redux/reducers/grid.state';
 import { figuresSVG } from './figures.img';
-import { FigureColor } from '../../../../enums/enums';
+import { FigureColor, GameModes } from '../../../../enums/enums';
 import { IFigureProps } from '../../../../interfaces/interfaces';
+import { RootState } from '../../../../redux/reducers';
 
 const Figure = (props: IFigureProps) => {
   const dispatch = useDispatch();
-  const {
-    coords,
-    name,
-    color
-  } = props;
+  const { coords, name, color } = props;
 
-  const setPosition = (coord:number) => `${(560 / 8) * coord}px`;
+  const { mode, playerColor } = useSelector(
+    (state: RootState) => state.websockets
+  );
+
+  const setPosition = (coord: number) => `${(560 / 8) * coord}px`;
 
   const isBLack = color === FigureColor.BLACK;
   const figureProps = {
@@ -25,6 +26,13 @@ const Figure = (props: IFigureProps) => {
     top: setPosition(coords[1]),
     fill: color.toLowerCase()
   };
+
+  const figureHandler = () => {
+    const check = mode === GameModes.LOCAL_PVP
+    || (mode === GameModes.NETWORK_PVP && playerColor === color);
+    if (check) dispatch(setChosenFigure(figureProps));
+  };
+
   return (
     <svg
       viewBox={`${isBLack ? '15' : '-15'} 0 298 298`}
@@ -34,7 +42,7 @@ const Figure = (props: IFigureProps) => {
         top,
         transform: isBLack ? 'rotate(0.5turn)' : ''
       }}
-      onClick={() => dispatch(setChosenFigure(figureProps))}
+      onClick={figureHandler}
     >
       <g>{figuresSVG[name]!(fill)}</g>
     </svg>
