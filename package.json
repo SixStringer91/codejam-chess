@@ -26,6 +26,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "homepage":"http://SixStringer91.github.io/codejam-chess",
     "build:css": "node-sass src/ -o src/ ",
     "start": "react-scripts start",
     "build": "react-scripts build",
