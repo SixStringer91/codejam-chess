@@ -11,7 +11,7 @@ const { WHITE, BLACK } = FigureColor;
 
 function Main() {
   const { gameCycle } = useSelector((state: RootState) => state.websockets);
-
+  console.log(gameCycle);
   const routes = () => {
     if (gameCycle) {
       return (
