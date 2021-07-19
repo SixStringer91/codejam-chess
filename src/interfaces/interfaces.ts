@@ -40,11 +40,7 @@ export interface IMoveSquareProps {
 }
 
 export interface IUserGridState{
-  player: string,
-  winner: FigureColor | null
-  enemy: string,
-  gameCycle: boolean,
-  gameMode: GameModes
+  winner: FigureColor | null,
   time:number,
   chosenFigure: IChosenFigure | null,
   currentMover: FigureColor.BLACK|FigureColor.WHITE,
@@ -61,7 +57,19 @@ export interface IUserGridState{
 }
 
 export interface IPopups {
-  isOpen: boolean,
-  playerNameInput: string,
-  mode: PopupMode | null
+  isOpen: boolean;
+  playerNameInput: string;
+  mode: PopupMode | null;
+}
+
+export interface IWebsocketState {
+  gameCycle: boolean,
+  player: string,
+  enemy: string,
+  mode: GameModes;
+  connected: boolean;
+  readyState: boolean;
+  opponentConnected: boolean;
+  socket: null | WebSocket;
+  playerColor: FigureColor;
 }

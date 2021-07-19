@@ -8,7 +8,7 @@ import './header.style.scss';
 import Timer from './timer/timer';
 
 function Header() {
-  const gameCycle = useSelector((state:RootState) => state.userGrid.gameCycle);
+  const gameCycle = useSelector((state:RootState) => state.websockets.gameCycle);
 
   const timerStart = useMemo(() => (gameCycle ? <Timer /> : ''), [gameCycle]);
   return (

@@ -10,17 +10,30 @@ import { RootState } from '../../redux/reducers';
 const { WHITE, BLACK } = FigureColor;
 
 function Main() {
-  const isCycle = useSelector((state: RootState) => state.userGrid.gameCycle);
+  const { gameCycle } = useSelector((state: RootState) => state.websockets);
+
+  const routes = () => {
+    if (gameCycle) {
+      return (
+        <Switch>
+          <Route path="/game" component={Game} />
+          <Redirect from="/" to="/game" />
+        </Switch>
+      );
+    }
+    return (
+      <Switch>
+        <Route path="/" component={Menu} />
+        <Redirect from="/game" to="/" />
+      </Switch>
+    );
+  };
   return (
     <div className="main">
       <PlayerStats type="player" color={WHITE} />
       <Switch>
         <Route exact path="/" component={Menu} />
-        {isCycle ? (
-          <Route path="/game" component={Game} />
-        ) : (
-          <Redirect from="/game" to="/" />
-        )}
+        {routes()}
       </Switch>
       <PlayerStats type="enemy" color={BLACK} />
     </div>

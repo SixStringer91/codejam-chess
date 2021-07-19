@@ -12,12 +12,14 @@ import { setPopup } from '../../../redux/reducers/popup.state';
 function PlayerStats(props: { color: FigureColor; type: 'player' | 'enemy' }) {
   const { color, type } = props;
   const dispatch = useDispatch();
-  const name = useSelector((state: RootState) => state.userGrid[type]);
+  const name = useSelector((state: RootState) => state.websockets[type]);
   const currentMover = useSelector(
     (state: RootState) => state.userGrid.currentMover
   );
   const moves = useSelector((state: RootState) => state.userGrid.moves[color]);
-  const gameCycle = useSelector((state: RootState) => state.userGrid.gameCycle);
+  const gameCycle = useSelector(
+    (state: RootState) => state.websockets.gameCycle
+  );
   const isBLack = color === FigureColor.BLACK;
 
   const movesRender = useMemo(() => {
