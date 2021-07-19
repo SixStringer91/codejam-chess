@@ -39,5 +39,6 @@
   "include": [
     "src/components",
     "src/@types/*.ts",
+    "./src/",
     "./src/**/*.ts"]
 }
