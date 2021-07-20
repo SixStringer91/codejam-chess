@@ -2,7 +2,7 @@ import { FigureColor } from '../enums/enums';
 
 const { BLACK, WHITE } = FigureColor;
 
-const BASE_URL = '//localhost:4000/';
+const BASE_URL = '//immense-crag-63696.herokuapp.com/';
 export const WS_URL = `ws:${BASE_URL}echo`;
 export const HTTP_URL = `http:${BASE_URL}replays`;
 
