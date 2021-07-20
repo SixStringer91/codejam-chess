@@ -124,7 +124,13 @@ export const generateMoves = (
       while (x < grid.length && x >= 0 && y < grid.length && y >= 0) {
         const currentSquare = grid[y]![x];
         if (squareCheck({ x, y }, figure) && !currentSquare) {
-          squareCoords.push({ x, y });
+          const [fx, fy] = figure.position;
+          const posWhite = grid[fy - 1]![fx] === 0;
+          const posBlack = grid[fy + 1]![fx] === 0;
+          if ((figure.color === FigureColor.WHITE && posWhite)
+            || (figure.color === FigureColor.BLACK && posBlack)) {
+            squareCoords.push({ x, y });
+          }
         }
         if (figure.color === FigureColor.WHITE) {
           if (currentSquare !== 0) {
