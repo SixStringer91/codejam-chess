@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { SocketEvents } from '../../../enums/enums';
 import { RootState } from '../../../redux/reducers';
+import { gridReset } from '../../../redux/reducers/grid.state';
+import { setConnection } from '../../../redux/reducers/network.state';
 import { setPopup } from '../../../redux/reducers/popup.state';
 
 const WinnerViewer = () => {
@@ -28,6 +30,9 @@ const WinnerViewer = () => {
                 }
               })
             );
+          } else {
+            dispatch(gridReset());
+            dispatch(setConnection(false));
           }
         }}
         className="change-btn"
