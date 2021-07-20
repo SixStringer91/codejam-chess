@@ -15,7 +15,6 @@ $block-size:$grid-size/8;
 .chess-square{
   width:$block-size;
   height:$block-size;
-  background-color:#D00000;
 }
 
 .figure{
@@ -25,6 +24,7 @@ $block-size:$grid-size/8;
   cursor: pointer;
   filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5));
   -webkit-filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5));
+  animation: moved 0.5s;
 }
 
 
@@ -36,3 +36,8 @@ $block-size:$grid-size/8;
   opacity: 0.8;
 }
 }
+
+@keyframes moved {
+  from { opacity: 0; }
+  to { opacity: 1; }
+ }

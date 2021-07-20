@@ -1,7 +1,10 @@
 import { Dispatch } from 'react';
-import { SocketEvents } from '../../enums/enums';
+import { PopupMode, SocketEvents } from '../../enums/enums';
 import { figureMove, setChosenFigure } from '../reducers/grid.state';
-import { setOpponentConnection } from '../reducers/network.state';
+import {
+  setOpponentConnection
+} from '../reducers/network.state';
+import { setPopup } from '../reducers/popup.state';
 
 export const websocketMessagesHandler = (dispatch: Dispatch<any>, msg: any) => {
   const { event } = msg;
@@ -18,7 +21,7 @@ export const websocketMessagesHandler = (dispatch: Dispatch<any>, msg: any) => {
       dispatch(setOpponentConnection(msg));
       break;
     case GAME_OWER:
-     //
+      dispatch(setPopup({ isOpen: true, mode: PopupMode.SHOW_WINNER }));
       break;
     default:
       break;

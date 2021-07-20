@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FigureColor, GameModes } from '../../enums/enums';
+import { Members, FigureColor, GameModes } from '../../enums/enums';
+
 import { IWebsocketState } from '../../interfaces/interfaces';
+
+const { PLAYER, OPPONENT } = Members;
 
 const initialState: IWebsocketState = {
   gameCycle: false,
-  player: 'Player 1',
-  enemy: 'Player 2',
+  [PLAYER]: 'Player 1',
+  [OPPONENT]: 'Player 2',
   mode: GameModes.LOCAL_PVP,
   connected: false,
   readyState: false,
@@ -22,10 +25,10 @@ const websocketsSlice = createSlice({
       state.gameCycle = !state.gameCycle;
     },
     setPlayerName: (state, action) => {
-      state.player = action.payload ? action.payload : state.player;
+      state[PLAYER] = action.payload ? action.payload : state[PLAYER];
     },
     setOpponentName: (state, action) => {
-      state.enemy = action.payload;
+      state[OPPONENT] = action.payload;
     },
     setGameMode: (state, action) => {
       state.mode = action.payload;
@@ -40,13 +43,19 @@ const websocketsSlice = createSlice({
       } else {
         state.connected = false;
         state.socket = null;
+        state.opponentConnected = false;
+        state.readyState = false;
+        state.playerColor = FigureColor.WHITE;
+        state[OPPONENT] = 'Player 2';
+        state.gameCycle = false;
+        state.mode = GameModes.LOCAL_PVP;
       }
     },
     setOpponentConnection: (state, action) => {
       state.opponentConnected = action.payload;
       state.readyState = true;
       state.playerColor = action.payload.your_color;
-      state.enemy = action.payload.enemy_name;
+      state[OPPONENT] = action.payload.enemy_name;
       state.gameCycle = true;
     }
   }

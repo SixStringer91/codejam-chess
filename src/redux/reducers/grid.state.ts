@@ -1,9 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit';
-import {
-  ChessIDBlack,
-  ChessIDWhite,
-  FigureColor
-} from '../../enums/enums';
+import { ChessIDBlack, ChessIDWhite, FigureColor } from '../../enums/enums';
 import { IFigure, IUserGridState } from '../../interfaces/interfaces';
 
 const {
@@ -89,12 +85,38 @@ const userGridSlice = createSlice({
           }
         ];
       }
+    },
+    setWinnerNull: (state) => {
+      state.winner = null;
+    },
+    gridReset: (state) => {
+      state.winner = null;
+      state.time = 60 * 60;
+      state.chosenFigure = null;
+      state.currentMover = FigureColor.WHITE;
+      state.gameStats = [];
+      state.defeatedFigures = {
+        [FigureColor.BLACK]: [],
+        [FigureColor.WHITE]: []
+      };
+      state.moves = {
+        [FigureColor.BLACK]: [],
+        [FigureColor.WHITE]: []
+      };
+      state.grid = [
+        [R, H, B, Q, K, B, H, R],
+        [P, P, P, P, P, P, P, P],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [p, p, p, p, p, p, p, p],
+        [r, h, b, q, k, b, h, r]
+      ];
     }
   }
 });
 export const {
-  setChosenFigure,
-  figureMove,
-  setTime
+  setChosenFigure, figureMove, setTime, gridReset, setWinnerNull
 } = userGridSlice.actions;
 export default userGridSlice.reducer;

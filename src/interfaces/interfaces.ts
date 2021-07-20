@@ -2,7 +2,8 @@ import {
   GameModes,
   FigureColor,
   ChessFigures,
-  PopupMode
+  PopupMode,
+  Members
 } from '../enums/enums';
 
 export interface IFigure {
@@ -64,8 +65,8 @@ export interface IPopups {
 
 export interface IWebsocketState {
   gameCycle: boolean,
-  player: string,
-  enemy: string,
+  [Members.PLAYER]: string,
+  [Members.OPPONENT]: string,
   mode: GameModes;
   connected: boolean;
   readyState: boolean;

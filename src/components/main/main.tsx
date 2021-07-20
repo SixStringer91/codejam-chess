@@ -2,16 +2,13 @@ import { useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Game from './game/game';
 import PlayerStats from './player_stats/player.stats';
-import { FigureColor } from '../../enums/enums';
 import './main.style.scss';
 import Menu from './menu/menu';
 import { RootState } from '../../redux/reducers';
-
-const { WHITE, BLACK } = FigureColor;
+import { Members } from '../../enums/enums';
 
 function Main() {
   const { gameCycle } = useSelector((state: RootState) => state.websockets);
-  console.log(gameCycle);
   const routes = () => {
     if (gameCycle) {
       return (
@@ -30,12 +27,12 @@ function Main() {
   };
   return (
     <div className="main">
-      <PlayerStats type="player" color={WHITE} />
+      <PlayerStats type={Members.PLAYER} />
       <Switch>
         <Route exact path="/" component={Menu} />
         {routes()}
       </Switch>
-      <PlayerStats type="enemy" color={BLACK} />
+      <PlayerStats type={Members.OPPONENT} />
     </div>
   );
 }

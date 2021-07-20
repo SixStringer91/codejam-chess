@@ -5,7 +5,12 @@ import './game.style.scss';
 import Figure from './figure/figure.component';
 import Square from './square/square.component';
 import MoveSquare from './move_square/move_square.component';
-import { FigureColor, GameModes, PopupMode } from '../../../enums/enums';
+import {
+  FigureColor,
+  GameModes,
+  PopupMode,
+  SocketEvents
+} from '../../../enums/enums';
 import {
   generateFigures,
   generateMoves,
@@ -21,13 +26,20 @@ function Game() {
     (state: RootState) => state.userGrid
   );
 
-  const { mode, playerColor } = useSelector(
+  const { mode, playerColor, socket } = useSelector(
     (state: RootState) => state.websockets
   );
 
   useEffect(() => {
-    if (winner) {
+    if (winner === playerColor) {
       dispatch(setPopup({ isOpen: true, mode: PopupMode.SHOW_WINNER }));
+      socket?.send(
+        JSON.stringify({
+          payload: {
+            event: SocketEvents.GAME_OWER
+          }
+        })
+      );
     }
   }, [winner]);
 

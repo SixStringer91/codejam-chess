@@ -3,6 +3,11 @@ export enum MagicNumbers {
   HOUR = 60 * 60
 }
 
+export enum Members {
+  PLAYER = 'PLAYER',
+  OPPONENT = 'OPPONENT'
+}
+
 export enum GameModes {
   LOCAL_PVP = 'LOCAL_PVP',
   NETWORK_PVP = 'NETWORK_PVP',
@@ -17,6 +22,11 @@ export enum PopupMode {
 export enum FigureColor {
   BLACK = '#FFC533',
   WHITE = '#E0ECF6'
+}
+
+export enum GridColor {
+  WHITE = '#032b43',
+  BLACK = '#870A30'
 }
 
 export enum ChessFigures {
@@ -87,4 +97,5 @@ export enum SocketEvents {
   CHANGE_NAME = 'CHANGE_NAME',
   START = 'START',
   GAME_OWER = 'GAME_OWER',
+  CLOSE = 'CLOSE'
 }

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { chessMark, squareDir } from '../../../../utils/square_directions';
-import { ChessFigures, FigureColor } from '../../../../enums/enums';
+import { ChessFigures, FigureColor, GridColor } from '../../../../enums/enums';
 import { figures } from '../figure/figure.rules';
 import {
   IFigure,
@@ -18,6 +18,8 @@ const {
   QUEEN,
   BISHOP
 } = ChessFigures;
+
+const { BLACK, WHITE } = GridColor;
 
 export const generateFigures = (grid:(IFigure|0)[][],
   Component:React.FC<IFigureProps>) => grid
@@ -47,8 +49,8 @@ export const generateSquares = (
       isBLack = !isBLack;
       gridRender.push(
         <Component
-          key={`${isBLack ? 'black' : 'white'}${x}-${y}`}
-          color={isBLack ? '#032B43' : ''}
+          key={`${isBLack ? BLACK : WHITE}${x}-${y}`}
+          color={isBLack ? BLACK : WHITE}
           coords={[x, y]}
           chessMark={`${chessMark[x]}-${y}`}
         />

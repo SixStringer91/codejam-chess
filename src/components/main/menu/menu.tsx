@@ -5,7 +5,7 @@ import { RootState } from '../../../redux/reducers';
 import { setWebsocketConnection }
   from '../../../redux/thunks/websockets.thunks';
 import './menu.style.scss';
-import { GameModes, SocketEvents } from '../../../enums/enums';
+import { GameModes, Members, SocketEvents } from '../../../enums/enums';
 import {
   setReadyState,
   setGameMode,
@@ -16,7 +16,9 @@ function Menu() {
   const { LOCAL_PVP, NETWORK_PVP } = GameModes;
   const dispatch = useDispatch();
   const mode = useSelector((state: RootState) => state.websockets.mode);
-  const playerName = useSelector((state: RootState) => state.websockets.player);
+  const playerName = useSelector(
+    (state: RootState) => state.websockets[Members.PLAYER]
+  );
   const socket = useSelector((state: RootState) => state.websockets.socket);
   const connected = useSelector(
     (state: RootState) => state.websockets.connected

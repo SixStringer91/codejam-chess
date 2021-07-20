@@ -1,26 +1,42 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import mover from '../../../assets/mover.png';
-import { FigureColor, PopupMode } from '../../../enums/enums';
+import {
+  FigureColor,
+  GridColor,
+  Members,
+  PopupMode
+} from '../../../enums/enums';
 import { RootState } from '../../../redux/reducers';
 import { figuresSVG } from '../game/figure/figures.img';
 import { chessMark } from '../../../utils/square_directions';
 import './player.stats.scss';
 import { timeFormatHandle } from '../../../utils/timer.string-maker';
 import { setPopup } from '../../../redux/reducers/popup.state';
+import { whatColor } from '../../../utils/usefull_utils';
 
-function PlayerStats(props: { color: FigureColor; type: 'player' | 'enemy' }) {
-  const { color, type } = props;
+const { BLACK, WHITE } = GridColor;
+
+function PlayerStats(props: { type: Members.PLAYER | Members.OPPONENT }) {
+  const { type } = props;
   const dispatch = useDispatch();
   const name = useSelector((state: RootState) => state.websockets[type]);
+  const isCycle = useSelector((state: RootState) => state.websockets.gameCycle);
+  const playerColor = useSelector(
+    (state: RootState) => state.websockets.playerColor
+  );
   const currentMover = useSelector(
     (state: RootState) => state.userGrid.currentMover
   );
+  const isPlayer = type === Members.PLAYER;
+  const color = isPlayer ? playerColor : whatColor(playerColor);
   const moves = useSelector((state: RootState) => state.userGrid.moves[color]);
   const gameCycle = useSelector(
     (state: RootState) => state.websockets.gameCycle
   );
+
   const isBLack = color === FigureColor.BLACK;
+  const bgColor = color === FigureColor.BLACK ? WHITE : BLACK;
 
   const movesRender = useMemo(() => {
     if (gameCycle) {
@@ -79,21 +95,42 @@ function PlayerStats(props: { color: FigureColor; type: 'player' | 'enemy' }) {
     }
     return '';
   }, [gameCycle, currentMover]);
+
   return (
     <div className="player-block">
-      <div className="player-header">
+      <div
+        style={{
+          background: `${isCycle ? bgColor : ''}`,
+          color: `${isCycle ? color : ''}`
+        }}
+        className="player-header"
+      >
         {currentMoverLabel}
         <span>{name[0]?.toUpperCase()}</span>
       </div>
       <div
+        style={{
+          cursor: `${isPlayer ? 'pointer' : ''}`,
+          background: `${isCycle ? bgColor : ''}`,
+          color: `${isCycle ? color : ''}`
+        }}
         onClick={() => {
-          dispatch(setPopup({ isOpen: true, mode: PopupMode.EDIT_NAME }));
+          if (isPlayer) {
+            dispatch(setPopup({ isOpen: true, mode: PopupMode.EDIT_NAME }));
+          }
         }}
         className="player-name"
       >
         {name}
       </div>
-      <div className="player-table" style={{ opacity: gameCycle ? '1' : '0' }}>
+      <div
+        className="player-table"
+        style={{
+          background: `${isCycle ? bgColor : ''}`,
+          color: `${isCycle ? color : ''}`,
+          opacity: gameCycle ? '1' : '0'
+        }}
+      >
         <div className="move-table">{movesRender}</div>
         <div className="move-table time-table">{timeRender}</div>
       </div>

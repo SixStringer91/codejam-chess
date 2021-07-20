@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import { SocketEvents } from '../../enums/enums';
-import { isJSON, WS_URL } from '../../utils/backend_utils';
-import { } from '../reducers/grid.state';
+import { isJSON, WS_URL } from '../../utils/usefull_utils';
+import { gridReset } from '../reducers/grid.state';
 import { setConnection } from '../reducers/network.state';
 import { websocketMessagesHandler } from './websocket.messages';
 
@@ -26,6 +26,7 @@ export const setWebsocketConnection = (
     }
     console.log(`Код: ${event.code} причина: ${event.reason}`);
     dispatch(setConnection(false));
+    dispatch(gridReset());
   });
 
   wsConnection.addEventListener('error', (event) => {
