@@ -15,7 +15,7 @@ import {
   generateFigures,
   generateMoves,
   generateSquares
-} from './game_utils/game.utils';
+} from './game_logic/elements.component-generators';
 import { setPopup } from '../../../redux/reducers/popup.state';
 
 function Game() {

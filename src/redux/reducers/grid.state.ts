@@ -1,6 +1,7 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import { ChessIDBlack, ChessIDWhite, FigureColor } from '../../enums/enums';
 import { IFigure, IUserGridState } from '../../interfaces/interfaces';
+import { saveReplayThunk } from '../thunks/grid.thunks';
 
 const {
   B, H, K, Q, R, P
@@ -34,6 +35,9 @@ const initialState: IUserGridState = {
     [r, h, b, q, k, b, h, r]
   ]
 };
+
+export const saveReplay = createAsyncThunk('grid/save', saveReplayThunk);
+export const getReplaysThunk = createAsyncThunk('grid/get', saveReplayThunk);
 
 const userGridSlice = createSlice({
   name: 'grid-state',
@@ -114,9 +118,18 @@ const userGridSlice = createSlice({
         [r, h, b, q, k, b, h, r]
       ];
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(saveReplay.fulfilled, (_state, action) => {
+      console.log(action.payload);
+    });
   }
 });
 export const {
-  setChosenFigure, figureMove, setTime, gridReset, setWinnerNull
+  setChosenFigure,
+  figureMove,
+  setTime,
+  gridReset,
+  setWinnerNull
 } = userGridSlice.actions;
 export default userGridSlice.reducer;

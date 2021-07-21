@@ -2,15 +2,24 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { RootState } from '../../../redux/reducers';
-import { setWebsocketConnection }
-  from '../../../redux/thunks/websockets.thunks';
+import {
+  setWebsocketConnection
+} from '../../../redux/thunks/websockets.thunks';
 import './menu.style.scss';
-import { GameModes, Members, SocketEvents } from '../../../enums/enums';
+import {
+  GameModes,
+  Members,
+  PopupMode,
+  SocketEvents
+} from '../../../enums/enums';
 import {
   setReadyState,
   setGameMode,
-  setGameCycle
+  setGameCycle,
+  setConnection
 } from '../../../redux/reducers/network.state';
+import { setPopup } from '../../../redux/reducers/popup.state';
+import img from '../../../assets/rings.svg';
 
 function Menu() {
   const { LOCAL_PVP, NETWORK_PVP } = GameModes;
@@ -37,9 +46,9 @@ function Menu() {
           dispatch(setGameCycle());
         } else {
           dispatch(setReadyState('WAIT'));
-          socket?.send(JSON.stringify(
-            { payload: { event: SocketEvents.START } }
-          ));
+          socket?.send(
+            JSON.stringify({ payload: { event: SocketEvents.START } })
+          );
         }
         break;
       case LOCAL_PVP:
@@ -52,6 +61,7 @@ function Menu() {
   const viewReplays = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     e.preventDefault();
+    dispatch(setPopup({ isOpen: true, mode: PopupMode.REPLAYS }));
   };
 
   const isOnlineBtnColor = ({
@@ -76,6 +86,7 @@ function Menu() {
     if (mode === NETWORK_PVP || socket) {
       socket?.close(1000, 'работа закончена');
       dispatch(setGameMode(LOCAL_PVP));
+      dispatch(setConnection(false));
     } else {
       setWebsocketConnection(dispatch, playerName);
       dispatch(setGameMode(NETWORK_PVP));
@@ -90,9 +101,7 @@ function Menu() {
         className="menu-btn"
         style={{
           backgroundColor:
-          readyState
-          && mode === NETWORK_PVP
-          && connected ? 'grey' : ''
+            readyState && mode === NETWORK_PVP && connected ? 'grey' : ''
         }}
       >
         <button
@@ -108,7 +117,18 @@ function Menu() {
         >
           {mode === NETWORK_PVP ? 'online' : 'offline'}
         </button>
-        {readyState && mode === NETWORK_PVP && connected ? '...' : 'Start'}
+        {readyState && mode === NETWORK_PVP && connected ? (
+          <img
+            style={{
+              width: '80%',
+              height: '80%'
+            }}
+            src={img}
+            alt="rings"
+          />
+        ) : (
+          'Start'
+        )}
         <button onClick={viewReplays} type="button" className="button-replays">
           view replays
         </button>

@@ -1,3 +1,4 @@
+import { Coords } from './types';
 import {
   GameModes,
   FigureColor,
@@ -5,6 +6,7 @@ import {
   PopupMode,
   Members
 } from '../enums/enums';
+import { ReplaysMove } from '../components/replay/move.model';
 
 export interface IFigure {
   color: FigureColor;
@@ -12,32 +14,37 @@ export interface IFigure {
 }
 
 export interface IDefeatedFigure extends IFigure {
-  position: [x:number, y:number];
+  position: Coords;
   time: number;
 }
 
 export interface IMoves extends IDefeatedFigure {
-  prevPosition: [x:number, y:number]
+  prevPosition: Coords
 }
 
 export interface IChosenFigure extends IFigure {
-  position: [x:number, y:number];
+  position: Coords;
 }
 
 export interface IFigureProps{
-  coords:[x:number, y:number],
+  coords:Coords,
   name:string,
   color: string
 }
 
 export interface ISquareProps {
-  coords: [x:number, y:number];
+  coords: Coords;
   chessMark: string;
   color: string;
 }
 
 export interface IMoveSquareProps {
-  coords: [x:number, y:number];
+  coords: Coords;
+}
+
+export interface IMove {
+  [FigureColor.BLACK] :IMoves [],
+  [FigureColor.WHITE] :IMoves []
 }
 
 export interface IUserGridState{
@@ -50,10 +57,7 @@ export interface IUserGridState{
     [FigureColor.BLACK] :IDefeatedFigure [],
     [FigureColor.WHITE] :IDefeatedFigure []
   },
-  moves: {
-    [FigureColor.BLACK] :IMoves [],
-    [FigureColor.WHITE] :IMoves []
-  },
+  moves: IMove,
   grid: (IFigure|0)[][]
 }
 
@@ -73,4 +77,20 @@ export interface IWebsocketState {
   opponentConnected: boolean;
   socket: null | WebSocket;
   playerColor: FigureColor;
+}
+
+export interface IValidationProps {
+  figure: IChosenFigure;
+  grid: (IFigure|0)[][];
+}
+
+export interface IReplayMember {
+  name: string;
+  moves: ReplaysMove [];
+}
+
+export interface IReplay {
+  [FigureColor.BLACK]:IReplayMember
+
+  [FigureColor.WHITE]:IReplayMember
 }

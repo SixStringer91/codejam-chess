@@ -16,7 +16,8 @@ export enum GameModes {
 
 export enum PopupMode {
   EDIT_NAME = 'EDIT_NAME',
-  SHOW_WINNER = 'SHOW_WINNER'
+  SHOW_WINNER = 'SHOW_WINNER',
+  REPLAYS = 'REPLAYS'
 }
 
 export enum FigureColor {
