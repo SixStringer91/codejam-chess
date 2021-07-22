@@ -57,10 +57,18 @@ const websocketsSlice = createSlice({
       state.playerColor = action.payload.your_color;
       state[OPPONENT] = action.payload.enemy_name;
       state.gameCycle = true;
+    },
+    setReplayMode: (state, action) => {
+      state.mode = GameModes.REPLAY;
+      state[PLAYER] = action.payload[FigureColor.WHITE].name;
+      state[OPPONENT] = action.payload[FigureColor.BLACK].name;
+      state.playerColor = FigureColor.WHITE;
+      state.gameCycle = true;
     }
   }
 });
 export const {
+  setReplayMode,
   setGameCycle,
   setConnection,
   setOpponentConnection,

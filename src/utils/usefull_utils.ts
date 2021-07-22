@@ -21,3 +21,5 @@ export const whatColor = (color: FigureColor) => {
   }
   return BLACK;
 };
+
+export const intervals = [2000, 3000, 4000, 5000];

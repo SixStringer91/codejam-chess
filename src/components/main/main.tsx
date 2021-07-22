@@ -29,7 +29,6 @@ function Main() {
     <div className="main">
       <PlayerStats type={Members.PLAYER} />
       <Switch>
-        <Route exact path="/" component={Menu} />
         {routes()}
       </Switch>
       <PlayerStats type={Members.OPPONENT} />

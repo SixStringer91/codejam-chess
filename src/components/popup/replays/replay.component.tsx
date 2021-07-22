@@ -1,13 +1,15 @@
+import { useDispatch } from 'react-redux';
 import { FigureColor, GridColor } from '../../../enums/enums';
 import { IReplayRes } from '../../../interfaces/interfaces';
 import { timeFormatHandle } from '../../../utils/timer.string-maker';
 import ButtonPopup from '../button-popup/button.popup.component';
 import winnerIMG from '../../../assets/winner-icon.png';
+import { startReplayCycle } from '../../replay/replay.cycle';
 
 const Replay = (props: IReplayRes) => {
   const { [FigureColor.BLACK]: BLACK, [FigureColor.WHITE]: WHITE } = props;
   const whiteIsWinner = WHITE.moves.length > BLACK.moves.length;
-
+  const dispatch = useDispatch();
   const relaysResults = (() => {
     const { moves } = whiteIsWinner ? WHITE : BLACK;
     const { length } = moves;
@@ -71,7 +73,7 @@ const Replay = (props: IReplayRes) => {
           text="Start Replay"
           styles={{ marginTop: '10px' }}
           cb={() => {
-            console.log('start replay');
+            startReplayCycle(dispatch, props);
           }}
         />
       </div>

@@ -1,16 +1,16 @@
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { PopupMode, SocketEvents } from '../../enums/enums';
+import { Coords } from '../../interfaces/types';
 import { figureMove, setChosenFigure } from '../reducers/grid.state';
-import {
-  setOpponentConnection
-} from '../reducers/network.state';
+import { setOpponentConnection } from '../reducers/network.state';
 import { setPopup } from '../reducers/popup.state';
 
-export const websocketMessagesHandler = (dispatch: Dispatch<any>, msg: any) => {
+export const websocketMessagesHandler = (
+  dispatch: Dispatch,
+  msg: { event: SocketEvents; params: string|Coords|any }
+) => {
   const { event } = msg;
-  const {
-    MOVE, START, GAME_OWER
-  } = SocketEvents;
+  const { MOVE, START, GAME_OWER } = SocketEvents;
 
   switch (event) {
     case MOVE:

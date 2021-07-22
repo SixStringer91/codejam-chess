@@ -45,6 +45,9 @@ const userGridSlice = createSlice({
     setTime: (state, action) => {
       state.time = action.payload;
     },
+    setCurrentMover: (state, action) => {
+      state.currentMover = action.payload;
+    },
     setChosenFigure: (state, action) => {
       if (action.payload.color === state.currentMover) {
         state.chosenFigure = {
@@ -125,6 +128,7 @@ const userGridSlice = createSlice({
   }
 });
 export const {
+  setCurrentMover,
   setChosenFigure,
   figureMove,
   setTime,

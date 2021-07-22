@@ -102,4 +102,7 @@ export interface IReplayRes extends IReplay {
 
 export interface IReplaysReducer {
   replays: IReplayRes[];
+  currentReplay: null | IReplayRes;
+  winner: null | FigureColor;
+  speed: 0|1|2|3
 }

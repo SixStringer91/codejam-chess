@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { SocketEvents } from '../../enums/enums';
 import { isJSON, WS_URL } from '../../utils/usefull_utils';
 import { gridReset } from '../reducers/grid.state';
@@ -6,7 +6,7 @@ import { setConnection } from '../reducers/network.state';
 import { websocketMessagesHandler } from './websocket.messages';
 
 export const setWebsocketConnection = (
-  dispatch: Dispatch<any>, name: string
+  dispatch: Dispatch, name: string
 ) => {
   const wsConnection = new WebSocket(WS_URL);
 

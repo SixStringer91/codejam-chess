@@ -19,6 +19,8 @@ import {
 import { setPopup } from '../../../redux/reducers/popup.state';
 import { createReplay } from '../../replay/createReplay';
 import { saveReplay } from '../../../redux/reducers/grid.state';
+import { setReplayCycleMove } from '../../replay/replay.cycle';
+import { IReplayRes } from '../../../interfaces/interfaces';
 
 function Game() {
   const dispatch = useDispatch();
@@ -29,15 +31,21 @@ function Game() {
   );
 
   const {
-    PLAYER, OPPONENT, mode, playerColor, socket
-  } = useSelector(
-    (state: RootState) => state.websockets
-  );
+    PLAYER, OPPONENT, mode, playerColor, socket, gameCycle
+  } = useSelector((state: RootState) => state.websockets);
+
+  const currentReplay = useSelector(
+    (state: RootState) => state.replays.currentReplay
+  ) as IReplayRes;
+
+  const speed = useSelector((state:RootState) => state.replays.speed);
 
   useEffect(() => {
     if (winner === playerColor) {
-      const replay = createReplay(moves, PLAYER, OPPONENT, playerColor);
-      dispatch(saveReplay(replay));
+      if (mode !== GameModes.REPLAY) {
+        const replay = createReplay(moves, PLAYER, OPPONENT, playerColor);
+        dispatch(saveReplay(replay));
+      }
       dispatch(setPopup({ isOpen: true, mode: PopupMode.SHOW_WINNER }));
       socket?.send(
         JSON.stringify({
@@ -49,11 +57,18 @@ function Game() {
     }
   }, [winner]);
 
+  useEffect(() => {
+    if (mode === GameModes.REPLAY) {
+      setReplayCycleMove(dispatch, currentReplay, currentMover, speed);
+    }
+  }, [currentMover, gameCycle]);
+
   const transformRotater = () => {
     if (mode === GameModes.NETWORK_PVP && playerColor === FigureColor.BLACK) {
       return 'rotate(0.5turn)';
     }
-    if (mode === GameModes.LOCAL_PVP && currentMover === FigureColor.BLACK) {
+    if ((mode === GameModes.LOCAL_PVP
+      || mode === GameModes.REPLAY) && currentMover === FigureColor.BLACK) {
       return 'rotate(0.5turn)';
     }
     return '';

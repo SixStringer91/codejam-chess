@@ -11,7 +11,8 @@ export enum Members {
 export enum GameModes {
   LOCAL_PVP = 'LOCAL_PVP',
   NETWORK_PVP = 'NETWORK_PVP',
-  LOCAL_PVE = 'LOCAL_PVE'
+  LOCAL_PVE = 'LOCAL_PVE',
+  REPLAY = 'REPLAY'
 }
 
 export enum PopupMode {
