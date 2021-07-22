@@ -14,6 +14,7 @@ import './player.stats.scss';
 import { timeFormatHandle } from '../../../utils/timer.string-maker';
 import { setPopup } from '../../../redux/reducers/popup.state';
 import { whatColor } from '../../../utils/usefull_utils';
+import editIMG from '../../../assets/edit-icon.svg';
 
 const { BLACK, WHITE } = GridColor;
 
@@ -110,18 +111,25 @@ function PlayerStats(props: { type: Members.PLAYER | Members.OPPONENT }) {
       </div>
       <div
         style={{
-          cursor: `${isPlayer ? 'pointer' : ''}`,
           background: `${isCycle ? bgColor : ''}`,
           color: `${isCycle ? color : ''}`
-        }}
-        onClick={() => {
-          if (isPlayer) {
-            dispatch(setPopup({ isOpen: true, mode: PopupMode.EDIT_NAME }));
-          }
         }}
         className="player-name"
       >
         {name}
+        {isPlayer && (
+          <img
+            style={{
+              cursor: 'pointer',
+              marginLeft: '5px'
+            }}
+            src={editIMG}
+            alt="edit"
+            onClick={() => {
+              dispatch(setPopup({ isOpen: true, mode: PopupMode.EDIT_NAME }));
+            }}
+          />
+        )}
       </div>
       <div
         className="player-table"

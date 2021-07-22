@@ -37,7 +37,6 @@ const initialState: IUserGridState = {
 };
 
 export const saveReplay = createAsyncThunk('grid/save', saveReplayThunk);
-export const getReplaysThunk = createAsyncThunk('grid/get', saveReplayThunk);
 
 const userGridSlice = createSlice({
   name: 'grid-state',

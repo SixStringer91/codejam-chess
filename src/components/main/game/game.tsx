@@ -17,21 +17,27 @@ import {
   generateSquares
 } from './game_logic/elements.component-generators';
 import { setPopup } from '../../../redux/reducers/popup.state';
+import { createReplay } from '../../replay/createReplay';
+import { saveReplay } from '../../../redux/reducers/grid.state';
 
 function Game() {
   const dispatch = useDispatch();
   const {
-    chosenFigure, currentMover, grid, winner
+    chosenFigure, currentMover, grid, winner, moves
   } = useSelector(
     (state: RootState) => state.userGrid
   );
 
-  const { mode, playerColor, socket } = useSelector(
+  const {
+    PLAYER, OPPONENT, mode, playerColor, socket
+  } = useSelector(
     (state: RootState) => state.websockets
   );
 
   useEffect(() => {
     if (winner === playerColor) {
+      const replay = createReplay(moves, PLAYER, OPPONENT, playerColor);
+      dispatch(saveReplay(replay));
       dispatch(setPopup({ isOpen: true, mode: PopupMode.SHOW_WINNER }));
       socket?.send(
         JSON.stringify({

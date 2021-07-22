@@ -20,6 +20,7 @@ import {
 } from '../../../redux/reducers/network.state';
 import { setPopup } from '../../../redux/reducers/popup.state';
 import img from '../../../assets/rings.svg';
+import { getReplays } from '../../../redux/reducers/replays.state';
 
 function Menu() {
   const { LOCAL_PVP, NETWORK_PVP } = GameModes;
@@ -62,6 +63,7 @@ function Menu() {
     e.stopPropagation();
     e.preventDefault();
     dispatch(setPopup({ isOpen: true, mode: PopupMode.REPLAYS }));
+    dispatch(getReplays());
   };
 
   const isOnlineBtnColor = ({

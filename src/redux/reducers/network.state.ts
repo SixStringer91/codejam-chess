@@ -18,7 +18,7 @@ const initialState: IWebsocketState = {
 };
 
 const websocketsSlice = createSlice({
-  name: 'popups',
+  name: 'websockets-state',
   initialState,
   reducers: {
     setGameCycle: (state) => {

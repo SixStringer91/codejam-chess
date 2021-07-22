@@ -94,3 +94,12 @@ export interface IReplay {
 
   [FigureColor.WHITE]:IReplayMember
 }
+
+export interface IReplayRes extends IReplay {
+  _id:string;
+  _v:0;
+}
+
+export interface IReplaysReducer {
+  replays: IReplayRes[];
+}

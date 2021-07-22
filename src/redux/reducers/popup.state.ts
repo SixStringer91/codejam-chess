@@ -9,7 +9,7 @@ const initialState: IPopups = {
 };
 
 const popupSlice = createSlice({
-  name: 'popups',
+  name: 'popup-state',
   initialState,
   reducers: {
     setPopup: (state, action) => {

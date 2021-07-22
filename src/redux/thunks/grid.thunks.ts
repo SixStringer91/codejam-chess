@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IReplay } from '../../interfaces/interfaces';
+import { IReplay, IReplayRes } from '../../interfaces/interfaces';
 import { HTTP_URL } from '../../utils/usefull_utils';
 
 const headers = {
@@ -7,7 +7,7 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-export const getReplaysThunk = async (): Promise<any> => {
+export const getReplaysThunk = async (): Promise<IReplayRes[]> => {
   try {
     const response = await axios.get(HTTP_URL);
     return response.data;
@@ -16,7 +16,7 @@ export const getReplaysThunk = async (): Promise<any> => {
   }
 };
 
-export const saveReplayThunk = async (replay: IReplay): Promise<any> => {
+export const saveReplayThunk = async (replay: IReplay): Promise<IReplayRes> => {
   try {
     const response = await axios.post(HTTP_URL, JSON.stringify(replay), {
       headers

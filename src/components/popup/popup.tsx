@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { PopupMode } from '../../enums/enums';
 import { RootState } from '../../redux/reducers';
-import NameChange from './NameChanger/NameChanger';
+import NameChange from './name-changer/name-changer.popup';
 import './popup.scss';
-import ReplaysViewer from './Replays/ReplaysListVIewer';
-import WinnerViewer from './WinnerVIewer/WinnerViewer';
+import ReplaysViewer from './replays/replays-list.popup';
+import WinnerViewer from './winner-viewer/winner-viewer.popup';
 
 function Popup() {
   const isPopup = useSelector((state: RootState) => state.popup.isOpen);
