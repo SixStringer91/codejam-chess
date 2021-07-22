@@ -6,6 +6,7 @@ import { GameModes } from '../../enums/enums';
 import { RootState } from '../../redux/reducers';
 import './header.style.scss';
 import ReplayHeader from './replay-header/replay-header';
+import ReturnToLobby from './return-to-lobby/return-to-lobby.component';
 import Timer from './timer/timer';
 
 function Header() {
@@ -21,6 +22,7 @@ function Header() {
     () => (gameCycle && mode === GameModes.REPLAY ? <ReplayHeader /> : ''),
     [gameCycle]
   );
+  const returnToLobby = gameCycle ? <ReturnToLobby /> : '';
   return (
     <div className="header">
       <div className="logo-block">
@@ -29,6 +31,7 @@ function Header() {
       </div>
       {timerStart}
       {replayPanel}
+      {returnToLobby}
     </div>
   );
 }
