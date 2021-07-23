@@ -15,7 +15,7 @@ const {
 
 const initialState: IUserGridState = {
   winner: null,
-  time: 60 * 60,
+  time: MagicNumbers.HOUR,
   resultTable: null,
   chosenFigure: null,
   currentMover: FigureColor.WHITE,
@@ -110,7 +110,7 @@ const userGridSlice = createSlice({
     },
     gridReset: (state) => {
       state.winner = null;
-      state.time = 60 * 60;
+      state.time = MagicNumbers.HOUR;
       state.chosenFigure = null;
       state.currentMover = FigureColor.WHITE;
       state.gameStats = [];

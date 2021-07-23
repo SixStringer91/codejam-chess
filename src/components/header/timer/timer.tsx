@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { MagicNumbers } from '../../../enums/enums';
 import { RootState } from '../../../redux/reducers';
 import { setTime } from '../../../redux/reducers/grid.state';
 import { timeFormatHandle } from '../../../utils/timer.string-maker';
@@ -15,7 +16,7 @@ function Timer() {
     <div className="timer">
       <div>Round Time:</div>
       <div>
-        {timeInMinutes === 60 * 60 ? '60:00' : timeFormatHandle(timeInMinutes)}
+        {timeInMinutes === MagicNumbers.HOUR ? '60:00' : timeFormatHandle(timeInMinutes)}
       </div>
     </div>
   );

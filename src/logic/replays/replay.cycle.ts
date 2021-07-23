@@ -1,10 +1,17 @@
 import { Dispatch } from 'redux';
-import { FigureColor, GameModes, SocketEvents } from '../../enums/enums';
+import {
+  FigureColor,
+  GameModes, MagicNumbers, SocketEvents
+} from '../../enums/enums';
 import { IReplayRes } from '../../interfaces/interfaces';
 import {
-  figureMove, gridReset, setChosenFigure, setCurrentMover, setTime, unsetResultTable
+  figureMove,
+  gridReset, setChosenFigure, setCurrentMover, setTime, unsetResultTable
 } from '../../redux/reducers/grid.state';
-import { setConnection, setPlayerName, setReplayMode } from '../../redux/reducers/network.state';
+import {
+  setConnection,
+  setPlayerName, setReplayMode
+} from '../../redux/reducers/network.state';
 import { setPopup } from '../../redux/reducers/popup.state';
 import {
   removeReplayFirstElement, setCurrentReplay
@@ -35,7 +42,7 @@ export const setReplayCycleMove = (
   if (currentArray.moves.length) {
     dispatch(setChosenFigure(chosenFigure));
     setTimeout(() => {
-      dispatch(setTime(60 * 60 - figure!.time));
+      dispatch(setTime(MagicNumbers.HOUR - figure!.time));
       dispatch(figureMove(figure?.position));
       dispatch(removeReplayFirstElement(figure?.color));
     }, intervals[interval]);
