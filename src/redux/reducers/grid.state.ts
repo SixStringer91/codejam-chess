@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import {
-  MagicNumbers, ChessIDBlack, ChessIDWhite, FigureColor
+  GridProps, TimeProps,
+  ChessIDBlack, ChessIDWhite, FigureColor
 } from '../../enums/enums';
-
 import { IFigure, IUserGridState } from '../../interfaces/interfaces';
 import { saveReplayThunk } from '../thunks/grid.thunks';
 
@@ -15,7 +15,7 @@ const {
 
 const initialState: IUserGridState = {
   winner: null,
-  time: MagicNumbers.HOUR,
+  time: TimeProps.HOUR_SEC,
   resultTable: null,
   chosenFigure: null,
   currentMover: FigureColor.WHITE,
@@ -89,7 +89,7 @@ const userGridSlice = createSlice({
             prevPosition: [fx, fy],
             position: [dx, dy],
             color: figure.color,
-            time: 60 * 60 - time,
+            time: TimeProps.HOUR_SEC - time,
             type: figure.type
           }
         ];
@@ -101,8 +101,8 @@ const userGridSlice = createSlice({
     setResultTable: (state, action) => {
       state.resultTable = {
         ...action.payload,
-        _id: MagicNumbers.GRID_SIZE,
-        _v: MagicNumbers.HOUR
+        _id: GridProps.GRID_LENGTH,
+        _v: TimeProps.HOUR_SEC
       };
     },
     unsetResultTable: (state) => {
@@ -110,7 +110,7 @@ const userGridSlice = createSlice({
     },
     gridReset: (state) => {
       state.winner = null;
-      state.time = MagicNumbers.HOUR;
+      state.time = TimeProps.HOUR_SEC;
       state.chosenFigure = null;
       state.currentMover = FigureColor.WHITE;
       state.gameStats = [];

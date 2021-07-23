@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux';
+import { GridProps } from '../../../enums/enums';
 import { ISquareProps } from '../../../interfaces/interfaces';
 import { RootState } from '../../../redux/reducers';
 
 function Square(props: ISquareProps) {
   const { chosenFigure } = useSelector((state: RootState) => state.userGrid);
   const { coords, chessMark, color } = props;
-  const setPosition = (coord:number) => `${(560 / 8) * coord}px`;
+  const setPosition = (
+    coord:number
+  ) => `${(GridProps.SQUARE_SIZE) * coord}px`;
   return (
     <>
       <div

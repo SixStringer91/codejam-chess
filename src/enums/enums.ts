@@ -1,6 +1,12 @@
-export enum MagicNumbers {
-  GRID_SIZE = 8,
-  HOUR = 60 * 60
+export enum GridProps {
+  GRID_LENGTH = 8,
+  GRID_SIZE_PX = 560,
+  SQUARE_SIZE = GRID_SIZE_PX / GRID_LENGTH
+}
+
+export enum TimeProps {
+  HOUR_MIN = 60,
+  HOUR_SEC = HOUR_MIN * HOUR_MIN
 }
 
 export enum Members {

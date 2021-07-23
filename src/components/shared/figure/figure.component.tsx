@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setChosenFigure } from '../../../redux/reducers/grid.state';
 import { figuresSVG } from './figures.img';
-import { FigureColor, GameModes } from '../../../enums/enums';
+import { FigureColor, GameModes, GridProps } from '../../../enums/enums';
 import { IFigureProps } from '../../../interfaces/interfaces';
 import { RootState } from '../../../redux/reducers';
 
@@ -13,7 +13,9 @@ const Figure = (props: IFigureProps) => {
     (state: RootState) => state.websockets
   );
 
-  const setPosition = (coord: number) => `${(560 / 8) * coord}px`;
+  const setPosition = (
+    coord: number
+  ) => `${(GridProps.SQUARE_SIZE) * coord}px`;
 
   const isBLack = color === FigureColor.BLACK;
   const figureProps = {

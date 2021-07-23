@@ -6,7 +6,7 @@ import {
   PopupMode,
   Members
 } from '../enums/enums';
-import { ReplaysMove } from '../logic/grid/elements.move.model';
+import { ReplaysMove } from '../logic/replays/replays-move.model';
 
 export interface IFigure {
   color: FigureColor;

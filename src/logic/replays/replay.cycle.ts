@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux';
 import {
+  TimeProps,
   FigureColor,
-  GameModes, MagicNumbers, SocketEvents
+  GameModes, SocketEvents
 } from '../../enums/enums';
+
 import { IReplayRes } from '../../interfaces/interfaces';
 import {
   figureMove,
@@ -42,7 +44,7 @@ export const setReplayCycleMove = (
   if (currentArray.moves.length) {
     dispatch(setChosenFigure(chosenFigure));
     setTimeout(() => {
-      dispatch(setTime(MagicNumbers.HOUR - figure!.time));
+      dispatch(setTime(TimeProps.HOUR_MIN - figure!.time));
       dispatch(figureMove(figure?.position));
       dispatch(removeReplayFirstElement(figure?.color));
     }, intervals[interval]);

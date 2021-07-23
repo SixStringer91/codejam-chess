@@ -1,6 +1,6 @@
 import { FigureColor } from '../../enums/enums';
 import { IMoves, IReplay, IReplayMember } from '../../interfaces/interfaces';
-import { ReplaysMove } from '../grid/elements.move.model';
+import { ReplaysMove } from './replays-move.model';
 
 export class ReplayModel implements IReplay {
   [FigureColor.BLACK]: IReplayMember;

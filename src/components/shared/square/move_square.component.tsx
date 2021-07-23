@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { GameModes, SocketEvents } from '../../../enums/enums';
+import { GameModes, GridProps, SocketEvents } from '../../../enums/enums';
 import { IMoveSquareProps } from '../../../interfaces/interfaces';
 import { RootState } from '../../../redux/reducers';
 import { figureMove } from '../../../redux/reducers/grid.state';
@@ -11,7 +11,9 @@ function MoveSquare(props: IMoveSquareProps) {
   );
   const { socket, mode } = useSelector((state: RootState) => state.websockets);
   const { coords } = props;
-  const setPosition = (coord: number) => `${(560 / 8) * coord}px`;
+  const setPosition = (
+    coord: number
+  ) => `${(GridProps.SQUARE_SIZE) * coord}px`;
 
   const setDirection = () => {
     if (mode !== GameModes.REPLAY) {
