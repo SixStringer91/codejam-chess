@@ -106,8 +106,10 @@ const userGridSlice = createSlice({
         _v: MagicNumbers.HOUR
       };
     },
-    gridReset: (state) => {
+    unsetResultTable: (state) => {
       state.resultTable = null;
+    },
+    gridReset: (state) => {
       state.winner = null;
       state.time = 60 * 60;
       state.chosenFigure = null;
@@ -146,6 +148,7 @@ export const {
   setTime,
   gridReset,
   setWinnerNull,
-  setResultTable
+  setResultTable,
+  unsetResultTable
 } = userGridSlice.actions;
 export default userGridSlice.reducer;

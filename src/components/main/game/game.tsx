@@ -49,7 +49,7 @@ function Game() {
           JSON.stringify({
             payload: {
               event: SocketEvents.GAME_OWER,
-              replay
+              params: replay
             }
           })
         );

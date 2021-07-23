@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { FigureColor, GameModes, SocketEvents } from '../../enums/enums';
 import { IReplayRes } from '../../interfaces/interfaces';
 import {
-  figureMove, gridReset, setChosenFigure, setCurrentMover, setTime
+  figureMove, gridReset, setChosenFigure, setCurrentMover, setTime, unsetResultTable
 } from '../../redux/reducers/grid.state';
 import { setConnection, setPlayerName, setReplayMode } from '../../redux/reducers/network.state';
 import { setPopup } from '../../redux/reducers/popup.state';
@@ -59,6 +59,7 @@ export const endGameButton = (
       })
     );
   } else {
+    dispatch(unsetResultTable());
     dispatch(gridReset());
     dispatch(setConnection(false));
   }
