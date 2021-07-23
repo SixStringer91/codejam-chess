@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setChosenFigure } from '../../../../redux/reducers/grid.state';
-import { figuresSVG } from '../../../shared/figures.img';
-import { FigureColor, GameModes } from '../../../../enums/enums';
-import { IFigureProps } from '../../../../interfaces/interfaces';
-import { RootState } from '../../../../redux/reducers';
+import { setChosenFigure } from '../../../redux/reducers/grid.state';
+import { figuresSVG } from './figures.img';
+import { FigureColor, GameModes } from '../../../enums/enums';
+import { IFigureProps } from '../../../interfaces/interfaces';
+import { RootState } from '../../../redux/reducers';
 
 const Figure = (props: IFigureProps) => {
   const dispatch = useDispatch();

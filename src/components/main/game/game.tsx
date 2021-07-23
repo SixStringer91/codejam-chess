@@ -2,9 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/reducers/index';
 import './game.style.scss';
-import Figure from './figure/figure.component';
-import Square from '../../shared/square.component';
-import MoveSquare from '../../shared/move_square.component';
+import Figure from '../../shared/figure/figure.component';
+import Square from '../../shared/square/square.component';
+import MoveSquare from '../../shared/square/move_square.component';
 import {
   FigureColor,
   GameModes,
@@ -91,6 +91,7 @@ function Game() {
     ) : ''),
     [chosenFigure]
   );
+
   return (
     <div
       className="grid"

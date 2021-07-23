@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Game from './game/game';
-import PlayerStats from '../shared/player.stats';
+import PlayerStats from '../shared/player-stats/player.stats';
 import './main.style.scss';
 import Menu from './menu/menu';
 import { RootState } from '../../redux/reducers';

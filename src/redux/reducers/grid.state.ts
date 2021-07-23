@@ -81,7 +81,6 @@ const userGridSlice = createSlice({
             { ...beatedFigure, position: [dx, dy], time: Date.now() }
           ];
         }
-        // state.grid = grid.map((row) => row.map((col) => col));
         state.chosenFigure = null;
         state.currentMover = figure.color === WHITE ? BLACK : WHITE;
         state.moves[chosenFigure.color] = [

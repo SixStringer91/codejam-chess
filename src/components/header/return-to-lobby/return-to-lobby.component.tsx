@@ -7,7 +7,7 @@ import {
   setPlayerName
 } from '../../../redux/reducers/network.state';
 import { setPopup } from '../../../redux/reducers/popup.state';
-import ButtonPopup from '../../shared/button.styled.component';
+import ButtonPopup from '../../shared/button-styled/button.styled.component';
 
 function ReturnToLobby() {
   const dispatch = useDispatch();

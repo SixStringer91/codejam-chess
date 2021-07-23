@@ -4,6 +4,12 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
+  .input-wrapper{
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+    flex-direction: column;
+  }
   .popup-window {
     background: linear-gradient(45deg, #032b43, #870a30);
     border: 5px solid #f0f7f4;
@@ -24,7 +30,6 @@
     font-family: Open sans;
     font-weight: bold;
   }
-
   .replay-header{
     position: sticky;
     top:0px;
@@ -37,12 +42,20 @@
   }
   .name-placeholder {
     background-color: #e27d5f;
-    margin: 10px 0;
+    margin: 10px auto;
     padding: 10px;
-    border: 0;
+    border: 2px solid white;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
     transition: 0.3s box-shadow;
+    color:white;
+    font-size: 20px;
+    font-family: Open sans;
+    text-align: center;
   }
+  input:focus::-webkit-input-placeholder {
+    color: transparent;
+    transition: color .3s;
+}
   .name-placeholder:hover {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   }
