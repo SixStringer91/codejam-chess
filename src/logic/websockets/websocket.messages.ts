@@ -5,9 +5,9 @@ import {
   figureMove,
   setChosenFigure,
   setResultTable
-} from '../reducers/grid.state';
-import { setOpponentConnection } from '../reducers/network.state';
-import { setPopup } from '../reducers/popup.state';
+} from '../../redux/reducers/grid.state';
+import { setOpponentConnection } from '../../redux/reducers/network.state';
+import { setPopup } from '../../redux/reducers/popup.state';
 
 export const websocketMessagesHandler = (
   dispatch: Dispatch,

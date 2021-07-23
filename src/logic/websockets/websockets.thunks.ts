@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux';
 import { SocketEvents } from '../../enums/enums';
 import { isJSON, WS_URL } from '../../utils/usefull_utils';
-import { gridReset } from '../reducers/grid.state';
-import { setConnection } from '../reducers/network.state';
+import { gridReset } from '../../redux/reducers/grid.state';
+import { setConnection } from '../../redux/reducers/network.state';
 import { websocketMessagesHandler } from './websocket.messages';
 
 export const setWebsocketConnection = (

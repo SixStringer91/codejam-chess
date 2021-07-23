@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { RootState } from '../../../redux/reducers';
 import {
   setWebsocketConnection
-} from '../../../redux/thunks/websockets.thunks';
+} from '../../../logic/websockets/websockets.thunks';
 import './menu.style.scss';
 import {
   GameModes,
