@@ -18,7 +18,7 @@ import {
 } from '../../../logic/grid/elements.component-generators';
 import { setPopup } from '../../../redux/reducers/popup.state';
 import { createReplay } from '../../../logic/replays/createReplay';
-import { saveReplay } from '../../../redux/reducers/grid.state';
+import { saveReplay, setResultTable } from '../../../redux/reducers/grid.state';
 import { IFigureProps, IReplayRes } from '../../../interfaces/interfaces';
 import { setReplayCycleMove } from '../../../logic/replays/replay.cycle';
 
@@ -41,19 +41,23 @@ function Game() {
   const speed = useSelector((state:RootState) => state.replays.speed);
 
   useEffect(() => {
-    if (winner === playerColor) {
-      if (mode !== GameModes.REPLAY) {
-        const replay = createReplay(moves, PLAYER, OPPONENT, playerColor);
+    if (winner) {
+      const replay = createReplay(moves, PLAYER, OPPONENT, playerColor);
+      if (mode === GameModes.NETWORK_PVP && winner === playerColor) {
         dispatch(saveReplay(replay));
+        socket?.send(
+          JSON.stringify({
+            payload: {
+              event: SocketEvents.GAME_OWER,
+              replay
+            }
+          })
+        );
+      } else {
+        dispatch(setResultTable(replay));
       }
+      dispatch(setResultTable(replay));
       dispatch(setPopup({ isOpen: true, mode: PopupMode.SHOW_WINNER }));
-      socket?.send(
-        JSON.stringify({
-          payload: {
-            event: SocketEvents.GAME_OWER
-          }
-        })
-      );
     }
   }, [winner]);
 

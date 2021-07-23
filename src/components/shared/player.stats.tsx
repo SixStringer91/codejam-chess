@@ -1,20 +1,20 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import mover from '../../../assets/mover.png';
+import mover from '../../assets/mover.png';
 import {
   FigureColor,
   GridColor,
   Members,
   PopupMode
-} from '../../../enums/enums';
-import { RootState } from '../../../redux/reducers';
-import { figuresSVG } from '../game/figure/figures.img';
-import { chessMark } from '../../../utils/square_directions';
+} from '../../enums/enums';
+import { RootState } from '../../redux/reducers';
+import { figuresSVG } from './figures.img';
+import { chessMark } from '../../utils/square_directions';
 import './player.stats.scss';
-import { timeFormatHandle } from '../../../utils/timer.string-maker';
-import { setPopup } from '../../../redux/reducers/popup.state';
-import { whatColor } from '../../../utils/usefull_utils';
-import editIMG from '../../../assets/edit-icon.svg';
+import { timeFormatHandle } from '../../utils/timer.string-maker';
+import { setPopup } from '../../redux/reducers/popup.state';
+import { whatColor } from '../../utils/usefull_utils';
+import editIMG from '../../assets/edit-icon.svg';
 
 const { BLACK, WHITE } = GridColor;
 

@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
-import { FigureColor } from '../../enums/enums';
+import { FigureColor, GameModes, SocketEvents } from '../../enums/enums';
 import { IReplayRes } from '../../interfaces/interfaces';
 import {
-  figureMove, setChosenFigure, setCurrentMover, setTime
+  figureMove, gridReset, setChosenFigure, setCurrentMover, setTime
 } from '../../redux/reducers/grid.state';
-import { setReplayMode } from '../../redux/reducers/network.state';
+import { setConnection, setPlayerName, setReplayMode } from '../../redux/reducers/network.state';
 import { setPopup } from '../../redux/reducers/popup.state';
 import {
   removeReplayFirstElement, setCurrentReplay
@@ -39,5 +39,27 @@ export const setReplayCycleMove = (
       dispatch(figureMove(figure?.position));
       dispatch(removeReplayFirstElement(figure?.color));
     }, intervals[interval]);
+  }
+};
+export const endGameButton = (
+  dispatch:Dispatch,
+  props:{socket:WebSocket | null,
+    mode: GameModes }
+) => {
+  dispatch(setPopup({ isOpen: false, mode: null }));
+  if (props.mode === GameModes.REPLAY) {
+    dispatch(setPlayerName('Player1'));
+  }
+  if (props.socket) {
+    props.socket.send(
+      JSON.stringify({
+        payload: {
+          event: SocketEvents.CLOSE
+        }
+      })
+    );
+  } else {
+    dispatch(gridReset());
+    dispatch(setConnection(false));
   }
 };

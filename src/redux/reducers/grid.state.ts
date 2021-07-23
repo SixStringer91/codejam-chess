@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
-import { ChessIDBlack, ChessIDWhite, FigureColor } from '../../enums/enums';
+import {
+  MagicNumbers, ChessIDBlack, ChessIDWhite, FigureColor
+} from '../../enums/enums';
+
 import { IFigure, IUserGridState } from '../../interfaces/interfaces';
 import { saveReplayThunk } from '../thunks/grid.thunks';
 
@@ -13,6 +16,7 @@ const {
 const initialState: IUserGridState = {
   winner: null,
   time: 60 * 60,
+  resultTable: null,
   chosenFigure: null,
   currentMover: FigureColor.WHITE,
   gameStats: [],
@@ -95,7 +99,15 @@ const userGridSlice = createSlice({
     setWinnerNull: (state) => {
       state.winner = null;
     },
+    setResultTable: (state, action) => {
+      state.resultTable = {
+        ...action.payload,
+        _id: MagicNumbers.GRID_SIZE,
+        _v: MagicNumbers.HOUR
+      };
+    },
     gridReset: (state) => {
+      state.resultTable = null;
       state.winner = null;
       state.time = 60 * 60;
       state.chosenFigure = null;
@@ -123,7 +135,7 @@ const userGridSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(saveReplay.fulfilled, (_state, action) => {
-      console.log(action.payload);
+      console.log(action);
     });
   }
 });
@@ -133,6 +145,7 @@ export const {
   figureMove,
   setTime,
   gridReset,
-  setWinnerNull
+  setWinnerNull,
+  setResultTable
 } = userGridSlice.actions;
 export default userGridSlice.reducer;

@@ -51,6 +51,7 @@ export interface IMove {
 export interface IUserGridState{
   winner: FigureColor | null,
   time:number,
+  resultTable: IReplayRes | null,
   chosenFigure: IChosenFigure | null,
   currentMover: FigureColor.BLACK|FigureColor.WHITE,
   gameStats: {from:number[], to:string}[],
@@ -66,6 +67,7 @@ export interface IPopups {
   isOpen: boolean;
   playerNameInput: string;
   mode: PopupMode | null;
+  replay: IReplayRes | null;
 }
 
 export interface IWebsocketState {
