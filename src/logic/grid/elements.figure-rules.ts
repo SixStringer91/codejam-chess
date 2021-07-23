@@ -2,7 +2,7 @@ import {
   ChessFigures,
   FigureColor,
   MagicNumbers
-} from '../../../../enums/enums';
+} from '../../enums/enums';
 
 interface IMoveCheck {
   x: number;

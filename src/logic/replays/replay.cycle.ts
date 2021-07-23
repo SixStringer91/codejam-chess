@@ -1,18 +1,14 @@
 import { Dispatch } from 'redux';
 import { FigureColor } from '../../enums/enums';
 import { IReplayRes } from '../../interfaces/interfaces';
+import {
+  figureMove, setChosenFigure, setCurrentMover, setTime
+} from '../../redux/reducers/grid.state';
 import { setReplayMode } from '../../redux/reducers/network.state';
 import { setPopup } from '../../redux/reducers/popup.state';
 import {
-  removeReplayFirstElement,
-  setCurrentReplay
+  removeReplayFirstElement, setCurrentReplay
 } from '../../redux/reducers/replays.state';
-import {
-  figureMove,
-  setChosenFigure,
-  setCurrentMover,
-  setTime
-} from '../../redux/reducers/grid.state';
 
 const intervals = [1000, 2000, 3000, 4000];
 

@@ -6,7 +6,7 @@ import {
   PopupMode,
   Members
 } from '../enums/enums';
-import { ReplaysMove } from '../components/replay/move.model';
+import { ReplaysMove } from '../logic/grid/elements.move.model';
 
 export interface IFigure {
   color: FigureColor;
@@ -28,6 +28,7 @@ export interface IChosenFigure extends IFigure {
 
 export interface IFigureProps{
   coords:Coords,
+  key:string,
   name:string,
   color: string
 }

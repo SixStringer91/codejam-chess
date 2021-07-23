@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { SocketEvents } from '../../../../enums/enums';
-import { IMoveSquareProps } from '../../../../interfaces/interfaces';
-import { RootState } from '../../../../redux/reducers';
-import { figureMove } from '../../../../redux/reducers/grid.state';
+import { SocketEvents } from '../../enums/enums';
+import { IMoveSquareProps } from '../../interfaces/interfaces';
+import { RootState } from '../../redux/reducers';
+import { figureMove } from '../../redux/reducers/grid.state';
 
 function MoveSquare(props: IMoveSquareProps) {
   const dispatch = useDispatch();

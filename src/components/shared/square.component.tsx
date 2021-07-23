@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { ISquareProps } from '../../../../interfaces/interfaces';
-import { RootState } from '../../../../redux/reducers';
+import { ISquareProps } from '../../interfaces/interfaces';
+import { RootState } from '../../redux/reducers';
 
 function Square(props: ISquareProps) {
   const { chosenFigure } = useSelector((state: RootState) => state.userGrid);

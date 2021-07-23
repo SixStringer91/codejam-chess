@@ -1,9 +1,9 @@
-import { FigureColor } from '../../../../enums/enums';
+import { FigureColor } from '../../enums/enums';
 import {
   IChosenFigure,
   IValidationProps
-} from '../../../../interfaces/interfaces';
-import { squareDir } from '../../../../utils/square_directions';
+} from '../../interfaces/interfaces';
+import { squareDir } from '../../utils/square_directions';
 import { figures } from './elements.figure-rules';
 
 export const squareCheck = (

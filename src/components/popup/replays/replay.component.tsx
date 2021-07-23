@@ -2,9 +2,9 @@ import { useDispatch } from 'react-redux';
 import { FigureColor, GridColor } from '../../../enums/enums';
 import { IReplayRes } from '../../../interfaces/interfaces';
 import { timeFormatHandle } from '../../../utils/timer.string-maker';
-import ButtonPopup from '../button-popup/button.popup.component';
+import ButtonPopup from '../../shared/button.styled.component';
 import winnerIMG from '../../../assets/winner-icon.png';
-import { startReplayCycle } from '../../replay/replay.cycle';
+import { startReplayCycle } from '../../../logic/replays/replay.cycle';
 
 const Replay = (props: IReplayRes) => {
   const { [FigureColor.BLACK]: BLACK, [FigureColor.WHITE]: WHITE } = props;

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/reducers/index';
 import './game.style.scss';
 import Figure from './figure/figure.component';
-import Square from './square/square.component';
-import MoveSquare from './move_square/move_square.component';
+import Square from '../../shared/square.component';
+import MoveSquare from '../../shared/move_square.component';
 import {
   FigureColor,
   GameModes,
@@ -15,12 +15,12 @@ import {
   generateFigures,
   generateMoves,
   generateSquares
-} from './game_logic/elements.component-generators';
+} from '../../../logic/grid/elements.component-generators';
 import { setPopup } from '../../../redux/reducers/popup.state';
-import { createReplay } from '../../replay/createReplay';
+import { createReplay } from '../../../logic/replays/createReplay';
 import { saveReplay } from '../../../redux/reducers/grid.state';
-import { setReplayCycleMove } from '../../replay/replay.cycle';
-import { IReplayRes } from '../../../interfaces/interfaces';
+import { IFigureProps, IReplayRes } from '../../../interfaces/interfaces';
+import { setReplayCycleMove } from '../../../logic/replays/replay.cycle';
 
 function Game() {
   const dispatch = useDispatch();
@@ -74,12 +74,17 @@ function Game() {
     return '';
   };
 
-  const figuresList = useMemo(() => generateFigures(grid, Figure), [grid]);
+  const figuresList = useMemo(
+    () => generateFigures(grid)
+      .map((el) => <Figure {...el as IFigureProps} />), [grid]
+  );
 
-  const squaresList = generateSquares(grid, Square);
+  const squaresList = generateSquares(grid).map((el) => <Square {...el} />);
 
   const canMoveList = useMemo(
-    () => (chosenFigure ? generateMoves(grid, chosenFigure, MoveSquare) : ''),
+    () => (chosenFigure ? generateMoves(grid, chosenFigure).map(
+      (el) => <MoveSquare {...el} />
+    ) : ''),
     [chosenFigure]
   );
   return (

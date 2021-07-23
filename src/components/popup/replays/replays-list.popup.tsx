@@ -4,7 +4,7 @@ import img from '../../../assets/rings.svg';
 import { RootState } from '../../../redux/reducers';
 import { replayListRender } from './replay.HOC-list';
 import Replay from './replay.component';
-import ButtonPopup from '../button-popup/button.popup.component';
+import ButtonPopup from '../../shared/button.styled.component';
 
 const ReplaysViewer = () => {
   const dispatch = useDispatch();

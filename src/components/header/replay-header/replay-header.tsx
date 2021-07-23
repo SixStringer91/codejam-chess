@@ -3,7 +3,7 @@ import { FigureColor } from '../../../enums/enums';
 import { RootState } from '../../../redux/reducers';
 import { setReplaySpeed } from '../../../redux/reducers/replays.state';
 import { intervals } from '../../../utils/usefull_utils';
-import ButtonPopup from '../../popup/button-popup/button.popup.component';
+import ButtonPopup from '../../shared/button.styled.component';
 
 function ReplayHeader() {
   const interval = useSelector((state:RootState) => state.replays.speed);
