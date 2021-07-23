@@ -10,7 +10,7 @@ const WinnerViewer = () => {
 
   return (
     <div className="popup-window">
-      <div className="replays-wrapper">
+      <div className="replays-wrapper" style={{ paddingTop: '45px' }}>
         { replayTable ? <Replay {...replayTable} /> : ringsIMG }
       </div>
     </div>
