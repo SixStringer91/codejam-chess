@@ -6,6 +6,7 @@ import Figure from '../../shared/figure/figure.component';
 import Square from '../../shared/square/square.component';
 import MoveSquare from '../../shared/square/move_square.component';
 import {
+  ChessFigures,
   FigureColor,
   GameModes,
   PopupMode,
@@ -21,7 +22,9 @@ import { createReplay } from '../../../logic/replays/createReplay';
 import { saveReplay, setResultTable } from '../../../redux/reducers/grid.state';
 import { IFigureProps, IReplayRes } from '../../../interfaces/interfaces';
 import { setReplayCycleMove } from '../../../logic/replays/replay.cycle';
-import { figureController } from '../../../logic/grid/elements.figure.constroller';
+import {
+  figureController
+} from '../../../logic/grid/elements.figure.constroller';
 import SquareShah from '../../shared/square/square.shah.component';
 
 function Game() {
@@ -96,7 +99,16 @@ function Game() {
 
   const figuresList = useMemo(
     () => figures
-      .map((el) => <Figure {...el} />), [grid]
+      .map((el) => {
+        const shah = shahSquares.length > 0
+        && el.name === ChessFigures.KING
+        && ((playerColor === el.color && mode === GameModes.NETWORK_PVP)
+        || (mode !== GameModes.NETWORK_PVP && currentMover === el.color));
+        if (shah) {
+          console.log(playerColor);
+        }
+        return <Figure {...{ ...el, shah }} />;
+      }), [grid]
   );
 
   const squaresList = generateSquares(grid).map((el) => <Square {...el} />);

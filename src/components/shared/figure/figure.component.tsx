@@ -7,15 +7,15 @@ import { RootState } from '../../../redux/reducers';
 
 const Figure = (props: IFigureProps) => {
   const dispatch = useDispatch();
-  const { coords, name, color } = props;
+  const {
+    coords, name, color, shah
+  } = props;
 
   const { mode, playerColor } = useSelector(
     (state: RootState) => state.websockets
   );
 
-  const setPosition = (
-    coord: number
-  ) => `${(GridProps.SQUARE_SIZE) * coord}px`;
+  const setPosition = (coord: number) => `${GridProps.SQUARE_SIZE * coord}px`;
 
   const isBLack = color === FigureColor.BLACK;
   const figureProps = {
@@ -29,6 +29,8 @@ const Figure = (props: IFigureProps) => {
     fill: color.toLowerCase()
   };
 
+  const isShah = shah ? '2px solid #e27d5f' : '';
+
   const figureHandler = () => {
     const check = mode === GameModes.LOCAL_PVP
     || (mode === GameModes.NETWORK_PVP && playerColor === color);
@@ -36,18 +38,23 @@ const Figure = (props: IFigureProps) => {
   };
 
   return (
-    <svg
-      viewBox={`${isBLack ? '15' : '-15'} 0 298 298`}
-      className="figure"
+    <div
       style={{
+        border: isShah,
         left,
         top,
         transform: isBLack ? 'rotate(0.5turn)' : ''
       }}
-      onClick={figureHandler}
+      className="figure-wrapper"
     >
-      <g>{figuresSVG[name]!(fill)}</g>
-    </svg>
+      <svg
+        viewBox={`${isBLack ? '-15' : '-15'} 0 298 298`}
+        className="figure"
+        onClick={figureHandler}
+      >
+        <g>{figuresSVG[name]!(fill)}</g>
+      </svg>
+    </div>
   );
 };
 

@@ -23,17 +23,21 @@ $block-size:$grid-size/8;
   opacity: 0.8;
 }
 
-.figure{
+.figure-wrapper{
   position:absolute;
   z-index: 2;
-  width:60px;
+  width:$block-size;
+  height: $block-size;
+
+.figure{
+  width: 60px;
   height: $block-size;
   cursor: pointer;
   filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5));
   -webkit-filter: drop-shadow(-2px -1px 0px rgba(53, 31, 31, 0.5));
   animation: moved 0.5s;
 }
-
+}
 
 .can_move{
   z-index: 4;

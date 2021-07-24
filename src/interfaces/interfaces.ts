@@ -30,7 +30,8 @@ export interface IFigureProps{
   coords:Coords,
   key:string,
   name:string,
-  color: string
+  color: string,
+  shah: boolean
 }
 
 export interface ISquareProps {
