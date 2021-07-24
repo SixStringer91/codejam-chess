@@ -6,10 +6,13 @@ import {
 } from '../../interfaces/interfaces';
 import { generateMoves } from './elements.component-generators';
 
+const { BLACK, WHITE } = FigureColor;
+
 const dangerCoords = (
   grid: (IFigure | 0)[][],
   king: string,
-  figures: IFigureProps[]
+  figures: IFigureProps[],
+  color: FigureColor
 ) => {
   const generated = figures.map((figure) => ({
     position: figure.coords,
@@ -17,7 +20,9 @@ const dangerCoords = (
     squares: [
       ...generateMoves(grid, {
         position: figure.coords,
-        type: figure.name
+        type: figure.name,
+        color: color === BLACK
+          ? WHITE : BLACK
       } as IChosenFigure)
     ]
   }));
@@ -32,7 +37,6 @@ const dangerCoords = (
       }
     }
   }
-  console.log(danger);
   return danger;
 };
 
@@ -54,5 +58,5 @@ export const figureController = (
       king = JSON.stringify([...figure.coords]);
     }
   });
-  return dangerCoords(grid, king, black);
+  return dangerCoords(grid, king, black, color);
 };

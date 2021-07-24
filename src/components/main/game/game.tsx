@@ -84,8 +84,12 @@ function Game() {
     () => generateFigures(grid), [grid]
   ) as IFigureProps[];
 
-  const shahSquares = figureController(grid, figures, currentMover)
-    .map((props, i) => <SquareShah key={`${props}${i}`} coords={props} />);
+  const shahSquares = useMemo(
+    () => figureController(grid, figures, currentMover)
+      .map(
+        (props, i) => <SquareShah key={`${props}${i}`} coords={props} />
+      ), [currentMover]
+  );
 
   const figuresList = useMemo(
     () => figures
