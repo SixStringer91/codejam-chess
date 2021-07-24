@@ -104,9 +104,6 @@ function Game() {
         && el.name === ChessFigures.KING
         && ((playerColor === el.color && mode === GameModes.NETWORK_PVP)
         || (mode !== GameModes.NETWORK_PVP && currentMover === el.color));
-        if (shah) {
-          console.log(playerColor);
-        }
         return <Figure {...{ ...el, shah }} />;
       }), [grid]
   );
