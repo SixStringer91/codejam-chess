@@ -21,6 +21,8 @@ import { createReplay } from '../../../logic/replays/createReplay';
 import { saveReplay, setResultTable } from '../../../redux/reducers/grid.state';
 import { IFigureProps, IReplayRes } from '../../../interfaces/interfaces';
 import { setReplayCycleMove } from '../../../logic/replays/replay.cycle';
+import { figureController } from '../../../logic/grid/elements.figure.constroller';
+import SquareShah from '../../shared/square/square.shah.component';
 
 function Game() {
   const dispatch = useDispatch();
@@ -78,9 +80,16 @@ function Game() {
     return '';
   };
 
+  const figures = useMemo(
+    () => generateFigures(grid), [grid]
+  ) as IFigureProps[];
+
+  const shahSquares = figureController(grid, figures, currentMover)
+    .map((props, i) => <SquareShah key={`${props}${i}`} coords={props} />);
+
   const figuresList = useMemo(
-    () => generateFigures(grid)
-      .map((el) => <Figure {...el as IFigureProps} />), [grid]
+    () => figures
+      .map((el) => <Figure {...el} />), [grid]
   );
 
   const squaresList = generateSquares(grid).map((el) => <Square {...el} />);
@@ -102,6 +111,7 @@ function Game() {
       {figuresList}
       {squaresList}
       {canMoveList}
+      {shahSquares}
     </div>
   );
 }
