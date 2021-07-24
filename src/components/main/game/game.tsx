@@ -85,10 +85,13 @@ function Game() {
   ) as IFigureProps[];
 
   const shahSquares = useMemo(
-    () => figureController(grid, figures, currentMover)
-      .map(
-        (props, i) => <SquareShah key={`${props}${i}`} coords={props} />
-      ), [currentMover]
+    () => {
+      const mover = mode === GameModes.NETWORK_PVP ? playerColor : currentMover;
+      return figureController(grid, figures, mover)
+        .map(
+          (props, i) => <SquareShah key={`${props}${i}`} coords={props} />
+        );
+    }, [currentMover]
   );
 
   const figuresList = useMemo(
