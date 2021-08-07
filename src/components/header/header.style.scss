@@ -1,0 +1,29 @@
+.header {
+  background: linear-gradient(45deg, rgb(135, 10, 48), rgb(3, 43, 67));
+  border-bottom: 5px solid #2d3038;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 0 0 auto;
+  .logo-block {
+    position: relative;
+  }
+  .title {
+    position: absolute;
+    top: 13px;
+    left: 31px;
+  }
+  .timer{
+    font-family: Open Sans;
+    color: white;
+    font-weight: bolder;
+    text-align: center;
+  }
+  .admitLoss{
+
+  }
+  .toLobby{
+    
+  }
+}

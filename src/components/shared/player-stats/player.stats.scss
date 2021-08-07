@@ -1,0 +1,95 @@
+$header-size: 124px;
+$table-width: 136px;
+.player-block {
+ align-self: center;
+  .player-header {
+    box-sizing: border-box;
+    margin: 0 auto;
+    font-family: Open Sans;
+    font-size: 72px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    width: $header-size;
+    height: $header-size;
+    color:white;
+    border: 5px solid #e8a87c;
+    border-radius: 50%;
+    text-align: center;
+    background-color: grey;
+    margin-bottom: 21px;
+    position: relative;
+    transition: background-color .5s;
+    .player-mover {
+      display: flex;
+      align-items:center;
+      justify-content: center;
+      position: absolute;
+      top: -20px;
+      right: -5px;
+      line-height: 98px;
+      background-color: #c4c4c4;
+      width: 48px;
+      height: 48px;
+      border: 3px solid #2d3038;
+      border-radius: 50%;
+      transition: opacity .3s;
+      img {
+        width: 27px;
+        height: 27px;
+        display: inline-block;
+      }
+    }
+  }
+
+  .player-name {
+    padding: 4px 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 5px solid #f0f7f4;
+    background: grey;
+    color: #f0f7f4;
+    font-family: Open Sans;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 21px;
+    transition: background-color .5s;
+    cursor:default;
+  }
+
+  .player-table {
+    overflow-y: scroll;
+    font-family: Open Sans;
+    font-weight: bolder;
+    color: white;
+    border: 5px solid #f0f7f4;
+    display: flex;
+    background-color: #85cdca;
+    transition: opacity .9s;
+    .move-table {
+      width: $table-width;
+      height: 350px;
+      div {
+        height: 35px;
+        display: flex;
+        align-items: flex-end;
+        animation:.5s anim;
+      }
+    }
+    .time-table {
+      div {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.player-table::-webkit-scrollbar-track {display: none;}
+.player-table::-webkit-scrollbar {display: none;}
+.player-table::-webkit-scrollbar-thumb {display: none;}
+.player-table:hover::-webkit-scrollbar-thumb {display: none;}
+
+@keyframes anim {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+ }
+

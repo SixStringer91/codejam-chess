@@ -1,0 +1,84 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "globals": {
+      "JSX": "readonly"
+    },
+    "settings": {
+        "import/resolver": {
+          "node": {
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        }
+      },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+      "no-underscore-dangle": "off",
+      "no-nested-ternary":"off",
+      "react/react-in-jsx-scope":"off",
+      "jsx-a11y/no-static-element-interactions":"off",
+      "jsx-a11y/no-noninteractive-element-interactions":"off",
+      "jsx-a11y/click-events-have-key-events":"off",
+      "react/no-array-index-key":"off",
+      "no-new": "off",
+      "react/jsx-props-no-spreading": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
+      "no-shadow": "off",
+      "@typescript-eslint/no-shadow": ["error"],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+         ],
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "react/jsx-filename-extension": "off",
+        "comma-dangle": ["error", {
+            "arrays": "never",
+            "objects": "never",
+            "imports": "never",
+            "exports": "never",
+            "functions": "never"
+        }],
+        "@typescript-eslint/comma-dangle": "off",
+          "no-plusplus": "off",
+          "no-console": "warn",
+          "max-len": ["warn", { "code":80 }],
+          "indent": ["warn", 2, {
+            "SwitchCase": 1
+          }],
+          "@typescript-eslint/indent": ["warn", 2, {
+            "SwitchCase": 1
+          }],
+          "import/prefer-default-export": "off",
+          "no-param-reassign": ["error", {
+            "props": false
+          }]
+    }
+}
